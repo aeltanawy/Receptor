@@ -1,0 +1,9 @@
+{% if contentMenu %}
+	<div id="content_menu">
+		<ul>
+			{% for item in contentMenu %}
+			<li><a href="{{ item.0 }}">{{ item.1 }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endif %}

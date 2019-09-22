@@ -1,0 +1,31 @@
+<br/>
+<div style="float: left; width: 400px;">
+<!--<img src="/site_media/images/ricecat.jpg"/>-->
+<p></p>
+<br/>
+<h2>Welcome to Rice Lab Receptor!</h2>
+<p>Receptor is a web-based application for managing lab data. Modules, or apps,
+are accessed via the sidebar on the left. Login information is shown in the upper-right
+corner of the page. For more information, please contact
+<a href="mailto:toh@rockefeller.edu">Tom Oh</a>.</p>
+</div>
+
+
+<div style="float: right; width: 400px; margin-left: 50px;">
+<h2>News</h2>
+<br/>
+{% if newsitems %}
+    {% for item in newsitems %}
+	<hr/>
+	<h3>{{ item.title }}</h3>
+	<br/>
+	<p class="multi_line">{{ item.body }}</p>
+	<br/>
+	<p><i>Posted {{ item.post_date|date:"F j, Y" }} by {{ item.user }} under {{ item.app }}</i></p>
+	<br/>
+    {% endfor %}
+{% else %}
+    <p>No news to display.</p>
+{% endif %}
+
+</div>

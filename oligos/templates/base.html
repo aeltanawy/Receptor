@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1" />
+<title>{% block title %}Receptor{% endblock %}</title>
+<link rel="stylesheet" type="text/css" href="/site_media/style.css" />
+{% block header %}
+{% endblock header %}
+</head>
+
+<body>
+	<center>
+	<div id="body_wrapper">
+		<div id="header">
+			{% include 'header.html' %}
+		</div>
+		<div id="sidebar">
+			{% include 'sidebar.html' %}
+		</div>
+		<div id="content_pane">
+			{% include 'content_menu.html' %}
+			<div id="content">
+	        		{% block content %}
+	        			{% include 'homepage.html' %}
+		        	{% endblock content %}
+			</div>
+		</div>
+	</div>
+	<p id="footer"><i>Receptor</i> 2009. Thomas Oh.</p>
+	</center>
+</body>
