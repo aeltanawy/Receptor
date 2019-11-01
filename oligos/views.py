@@ -1,20 +1,11 @@
+from django.contrib.postgres.search import SearchQuery, SearchRank
+from django.contrib.postgres.search import SearchVector
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404
-#from django.template import loader
+from django.views.generic import ListView, DetailView
+
 from .models import Oligo
 
-def index(request):
-    oligo_set = Oligo.objects.all()
-    #template = loader.get_template('oligos/index.html')
-    context = {
-        'oligo_set' : oligo_set,
-    }
-    #return HttpResponse(template.render(context, request))
-    return render(request, 'oligos/index.html', context)
-
-def detail(request, oligo_id):
-    oligo = get_object_or_404(Oligo, pk=oligo_id)
-    return render(request, 'oligos/detail.html', {'oligo': oligo})
 
 def edit(request, oligo_id):
     return HttpResponse(f"Editing {oligo_id}.")
@@ -27,3 +18,34 @@ def batch(request):
 
 def search(request):
     return HttpResponse("Search Oligo")
+
+
+class OligoListView(ListView):
+    model = Oligo
+    paginate_by = 25
+
+
+class OligoSearchView(ListView):
+    """Display Oligos list filtered by search query."""
+    model = Oligo
+    paginate_by = 25
+
+    def get_queryset(self):
+        query_set = Oligo.objects.filter()
+
+        keywords = self.request.GET.get('q')
+        if keywords:
+            search_query = SearchQuery(keywords)
+            name_vector = SearchVector('name', weight='A')
+            user_vector = SearchVector('user', weight='B')
+            gene_vector = SearchVector('gene_locus', weight='C')
+            search_vector = name_vector + user_vector + gene_vector
+            search_rank = SearchRank(search_vector, search_query)
+            query_set = query_set.annotate(search=search_vector).filter(search=search_query)
+            query_set = query_set.annotate(rank=search_rank).order_by('-rank')
+
+        return query_set
+
+
+class OligoDetailView(DetailView):
+    model = Oligo

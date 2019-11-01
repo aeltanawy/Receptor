@@ -1,1 +1,2 @@
 coverage==4.5.4
+django-fontawesome-5==1.0.16
