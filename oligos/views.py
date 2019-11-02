@@ -12,6 +12,8 @@ from django.forms import ModelForm
 from .models import Oligo
 
 
+FIELDS = ['user', 'name', 'sequence', 'details', 'primer_position', 'primer_partner', 'usages', 'gene_locus', 'organism', 'company', 'concentration', 'grade']
+
 def batch(request):
     return HttpResponse("Batch Oligo")
 
@@ -52,7 +54,7 @@ class OligoDetailView(DetailView):
 
 class OligoUpdate(UpdateView):
     model = Oligo
-    fields = ['user', 'name', 'sequence', 'details', 'primer_position', 'primer_partner', 'usages', 'gene_locus', 'organism', 'company', 'concentration', 'grade']
+    fields = FIELDS
     success_url = reverse_lazy('oligos:index')
 
 
@@ -61,10 +63,16 @@ class OligoDelete(DeleteView):
     success_url = reverse_lazy('oligos:index')
 
 
+class OligoCreate(CreateView):
+    model = Oligo
+    fields = FIELDS
+    success_url = reverse_lazy('oligos:index')
+
+
 class OligoForm(ModelForm):
     class Meta:
         model = Oligo
-        fields = ['user', 'name', 'sequence', 'details', 'primer_position', 'primer_partner', 'usages', 'gene_locus', 'organism', 'company', 'concentration', 'grade']
+        fields = FIELDS
 
 
 def clone(request, pk):

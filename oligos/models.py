@@ -31,7 +31,7 @@ class Oligo(models.Model):
     name = models.CharField(max_length=30, unique=True)
     sequence = models.CharField(max_length=200, blank=True)
     details = models.CharField(max_length=800, blank=True)
-    create_date = models.DateTimeField('date created')
+    create_date = models.DateTimeField(default=datetime.datetime.now)
     modified_date = models.DateTimeField(True, False, 'date modified')
     primer_position = models.CharField(max_length=2, blank=True, choices = SENSE_CHOICES, default='U')
     usages = models.ManyToManyField(Usage, blank=True)

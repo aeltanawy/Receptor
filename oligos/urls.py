@@ -17,6 +17,8 @@ urlpatterns = [
     path('<int:pk>/delete/', permission_required('oligos.change_oligo')(views.OligoDelete.as_view()), name='delete'),
     # /oligos/<int:oligo_id>/clone/
     path('<int:pk>/clone/', views.clone, name='clone_oligo'),
+    # /oligos/new/
+    path('new/', views.OligoCreate.as_view(), name='new'),
     # /oligos/batch/
     path('batch/', views.batch, name='batch'),
     # /oligos/search/
