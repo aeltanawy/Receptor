@@ -59,3 +59,8 @@ class OligoUpdate(UpdateView):
     model = Oligo
     fields = ['user', 'name', 'sequence', 'details', 'primer_position', 'primer_partner', 'usages', 'gene_locus', 'organism', 'company', 'concentration', 'grade']
     success_url = reverse_lazy('oligos:index')
+
+
+class OligoDelete(DeleteView):
+    model = Oligo
+    success_url = reverse_lazy('oligos:index')
