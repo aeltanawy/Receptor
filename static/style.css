@@ -12,6 +12,12 @@ p {
   padding: 0;
 }
 
+label {
+	padding: 4px;
+	font-weight: bold;
+	vertical-align: top;
+}
+
 #content {
 	background-image: url('/static/images/curve_joint1.gif');
 	background-position: top left;

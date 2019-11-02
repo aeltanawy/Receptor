@@ -32,7 +32,7 @@
 	<br><br>
 	<ul class="flex-md flex-row navbar-nav w-25 justify-content-between">
 		{% if perms.auth.edit %}
-			<li><a href="{% url 'oligos:edit' oligo.id %}">Edit</a></li>
+			<li><a href="{% url 'oligos:update' oligo.id %}">Edit</a></li>
 		{% endif %}
 		{% if perms.auth.delete %}
 			<li><a href="{% url 'oligos:delete' oligo.id %}">Delete</a></li>
