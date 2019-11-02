@@ -37,7 +37,7 @@
 		{% if perms.auth.delete %}
 			<li><a href="{% url 'oligos:delete' oligo.id %}">Delete</a></li>
 		{% endif %}
-		<li><a href="/oligos/edit/0/?clone={{oligo.id}}">Copy to new oligo</a></li>
+		<li><a href="{% url 'oligos:clone_oligo' oligo.id %}">Copy to new oligo</a></li>
 	</ul>
 
 {% endblock %}

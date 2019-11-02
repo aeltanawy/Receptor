@@ -2,20 +2,15 @@ from django.contrib.postgres.search import SearchQuery, SearchRank
 from django.contrib.postgres.search import SearchVector
 from django.contrib.auth.decorators import permission_required
 #from django.utils.decorators import method_decorator
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.forms import ModelForm
 
 from .models import Oligo
 
-
-def edit(request, oligo_id):
-    return HttpResponse(f"Editing {oligo_id}.")
-
-def delete(request, oligo_id):
-    return HttpResponse(f"Deleting {oligo_id}.")
 
 def batch(request):
     return HttpResponse("Batch Oligo")
@@ -64,3 +59,19 @@ class OligoUpdate(UpdateView):
 class OligoDelete(DeleteView):
     model = Oligo
     success_url = reverse_lazy('oligos:index')
+
+
+class OligoForm(ModelForm):
+    class Meta:
+        model = Oligo
+        fields = ['user', 'name', 'sequence', 'details', 'primer_position', 'primer_partner', 'usages', 'gene_locus', 'organism', 'company', 'concentration', 'grade']
+
+
+def clone(request, pk):
+    oligo = get_object_or_404(Oligo, pk=pk)
+    oligo.pk = None
+    form = OligoForm(request.POST or None, instance=oligo)
+    if form.is_valid():
+        form.save()
+        return redirect('oligos:index')
+    return render(request, 'oligos/clone.html', {'form': form})
