@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Oligo Edit</h2>
+<br>
+<h4>Instructions:</h4>
+<p>Enter oligo information in the form below. Only
+<b>'User'</b> and <b>'Name'</b> fields are required, but please enter as
+much information as possible.</p>
+<br>
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <br>
+    <input type="submit" value="Submit" />
+</form>
+
+{% endblock %}

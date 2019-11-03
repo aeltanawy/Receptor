@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h2>Oligos</h2>
+	<br>
+	{% if user.is_authenticated %}
+		<div class="row">
+			<div class="col-4">
+				<form action="{% url 'oligos:generic_search' %}" method="get" accept-charset="utf-8">
+	        <div class="input-group">
+	          <input class="form-control border-secondary py-2" type="text" placeholder="search..." name="q">
+	          <div class="input-group-append">
+	            <button class="btn btn-outline-secondary" type="button">
+	              <i class="fa fa-search"></i>
+	            </button>
+	          </div>
+	        </div>
+				</form>
+      </div>
+		</div
+		<br>
+		<br>
+
+		{% if oligo_list %}
+		  <table class="datatable" cellspacing="5">
+		    <tr>
+			    <th width="50%">Name</th>
+			    <th width="30%">User</th>
+			    <th width="30%">Gene Locus</th>
+			    <th width="50%">Sequence</th>
+					<th width="15%">Details</th>
+				</tr>
+		    {% for oligo in oligo_list %}
+				<tr>
+	        <td><a href="{% url 'oligos:detail' oligo.id %}">{{ oligo.name }}</a></td>
+	        <td>{{ oligo.user }}</td>
+	        <td>{{ oligo.gene_locus }}</td>
+	        <td>{{ oligo.sequence }}</td>
+					<td>{{ oligo.details }}</td>
+		    </tr>
+		    {% endfor %}
+		  </table>
+		{% else %}
+		  <p>No oligos in database.</p>
+		{% endif %}
+	{% else %}
+		<p>Access to Oligos require an account. Please create an account if you are not already registered.</p>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h4>Oligo Delete</h4>
+<br>
+<form method="post">{% csrf_token %}
+  Are sure you want to delete <b>"{{ object }}"</b> permenantly?
+  <br><br>
+  <input type="submit" value="Delete" />
+</form>
+
+{% endblock %}

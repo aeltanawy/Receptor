@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h2>Oligo Details for '{{ oligo.name }}'</h2>
+
+	<h4><br>General</h4>
+	<p><strong>User:</strong> {{ oligo.user }}</p>
+	<p><strong>Created:</strong> {{ oligo.create_date|date:"F j, Y" }}</p>
+	<p><strong>Modified:</strong> {{ oligo.mod_date|date:"F j, Y" }}</p>
+	<p><strong>Synthesized at:</strong> {{ oligo.company }}</p>
+	<p><strong>Concentration:</strong> {{oligo.concentration }}</p>
+	<p><strong>Grade:</strong> {{oligo.grade }}</p>
+	<p><strong>Usages:</strong></p>
+	<ul>
+		{% for use in oligo.usages.all %}
+		<li>{{ use.usage }}</li>
+		{% endfor %}
+	</ul>
+	<br>
+	<h4>Details</h4>
+	<p class="multi_line">{{ oligo.details }}</p>
+	<br>
+	<h4>Sequence information</h4>
+	<p><strong>Sequence:</strong> {{ oligo.sequence }}</p>
+	<p><strong>Length:</strong> {{ oligo.length }}</p>
+	<br>
+	<h4>Hybridization information</h4>
+	<p><strong>Organism:</strong> {{ oligo.organism }}</p>
+	<p><strong>Gene locus:</strong> {{ oligo.gene_locus }}</p>
+	<p><strong>Primer position:</strong> {{ oligo.get_primer_position_display }}</p>
+	<p><strong>Primer partner:</strong> {{ oligo.primer_partner }}</p>
+	<br><br>
+	<ul class="flex-md flex-row navbar-nav w-25 justify-content-between">
+		{% if perms.auth.edit %}
+			<li><a href="{% url 'oligos:update' oligo.id %}">Edit</a></li>
+		{% endif %}
+		{% if perms.auth.delete %}
+			<li><a href="{% url 'oligos:delete' oligo.id %}">Delete</a></li>
+		{% endif %}
+		<li><a href="{% url 'oligos:clone_oligo' oligo.id %}">Copy to new oligo</a></li>
+	</ul>
+
+{% endblock %}
