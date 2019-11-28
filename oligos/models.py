@@ -83,17 +83,6 @@ def auto_name_oligolist(oligolist):
         oligo.save()
     return oligolist
 
-
-class UserMap(models.Model):
-    oldname = models.CharField(max_length=30)
-    newname = models.CharField(max_length=30)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    def __str__(self):
-        return self.oldname+'->'+self.newname
-
-def new_Oligo(request):
-    return(Oligo(user=request.user,create_date=datetime.datetime.now()))
-
 def import_File(request, oligofile):
     dest = open(LOCAL_WORKING_DIR+'/oligos.txt', 'wb+')
     for chunk in oligofile.chunks():
@@ -171,34 +160,6 @@ def process_batch_submission(request, oligofile):
                 n+=1
     dest.close()
 
-
-def import_usermap(filename):
-    f = open(filename,'r')
-    for line in f:
-        v=line.split('\t')
-        oldname=v[0]
-        newname=v[1]
-        ai=v[2]
-        if User.objects.filter(username=newname):
-            user = User.objects.get(username=newname)
-        else:
-            user = User(username=newname)
-            user.set_password('rec')
-            user.save()
-        if ai.find('i')>-1:
-            print(newname, 'inactive')
-            user.set_password('inactivestatus')
-            user.is_active=False
-            user.save()
-        else:
-            print(newname, 'active')
-        if not UserMap.objects.filter(oldname=oldname):
-            m = UserMap()
-            m.oldname = oldname
-            m.newname = newname
-            m.user = user
-            m.save()
-    f.close()
 
 def cleanoligoname(name,offset=0):
     number = extract_number(name)
@@ -282,16 +243,6 @@ def getusages(usage):
                 ulist.append(u)
                 otherfound=True
     return ulist;
-
-def unicodeline(line):
-    line2=u''
-    for c in line:
-        try:
-            c=unicode(c,'utf-8')
-        except:
-            c='\n'
-        line2+=c
-    return line2
 
 def parseoligo(line):
     v=line.split('","')
