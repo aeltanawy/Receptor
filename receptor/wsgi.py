@@ -16,8 +16,7 @@ import dotenv
 
 dotenv.read_dotenv(override=True)
 
-sys.path.append('/Users/eltanawy/gitrepo/new-recpetor-app/new-Receptor')
-sys.path.append('/Users/eltanawy/gitrepo/new-recpetor-app/new-Receptor/receptor')
+sys.path.append(os.getenv("RECEPTOR_DIR"))
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'receptor.settings')
 

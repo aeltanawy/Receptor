@@ -1,8 +1,8 @@
 Receptor application
 ====================
-Receptor is a web-based application that is built using django framework for managing laboratory data. This first version of Receptor helps storing and retrieving your oligos information that is organized in a database.
+This is version 2.0 of Receptor application.
 
-This new Receptor is adapted from [tomoh1/Receptor](https://github.com/tomoh1/Receptor).
+Receptor is a web-based application that is built using django framework for managing laboratory data. This updated version of Receptor helps storing and retrieving your oligos information organizing the data in a database that is easily searchable.
 
 
 Initial Configuration
@@ -18,9 +18,9 @@ This initial configuration is done by the application administrator, or your loc
 3. Activate virtual environment
 
 4. Clone Receptor application
-    - Clone the new-receptor application
+    - Clone the receptor application
       ```
-      git clone https://github.com/aeltanawy/new-Receptor.git
+      git clone https://github.com/aeltanawy/Receptor.git
       ```
     - Install [pip](https://pip.pypa.io/en/stable/installing/) inside the virtual environment
     - Install Receptor `requirements.txt` file
@@ -30,7 +30,7 @@ This initial configuration is done by the application administrator, or your loc
 
 Configure Receptor
 ------------------
-1. `cd` into your cloned local `new-Receptor` repository
+1. `cd` into your cloned local `Receptor` repository
 
 2. Change `receptor.config` file by changing the values of the following variables:
     - **DB_USER**: your username to access the postgresql database
@@ -38,7 +38,7 @@ Configure Receptor
     - **ENVVARS_PATH**: the path to httpd `envvars` file
     - **HTTPD_PATH**: the path to httpd installation where `httpd.conf` can be located
     - **ADMIN_EMAIL**: the administrator email where users can inquire to in case of server errors
-    - **RECEPTOR_DIR**: the path to the cloned local `new-Receptor` repository
+    - **RECEPTOR_DIR**: the path to the cloned local `Receptor` repository
     - **PYTHON_PATH**: the path to your virtual environment `site-packages` directory
 
 
