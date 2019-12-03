@@ -18,12 +18,12 @@ This initial configuration is done by the application administrator, or your loc
 3. Activate virtual environment
 
 4. Clone Receptor application
-  - Clone the new-receptor application
+    - Clone the new-receptor application
       ```
       git clone https://github.com/aeltanawy/new-Receptor.git
       ```
-  - Install [pip](https://pip.pypa.io/en/stable/installing/) inside the virtual environment
-  - Install Receptor `requirements.txt` file
+    - Install [pip](https://pip.pypa.io/en/stable/installing/) inside the virtual environment
+    - Install Receptor `requirements.txt` file
       ```
       pip install -r requirements.txt
       ```
@@ -68,10 +68,9 @@ Configure Receptor with Apache2 and mod-wsgi
 **Install apache2**
 
   - **Mac** using homebrew
-
-        ```
-        brew install httpd
-        ```
+      ```
+      brew install httpd
+      ```
 
     Mac comes with its native version of apache2. For the Receptor application, when installing apache2 with homebrew, you will have to create `envvars` file in `/usr/local/Cellar/httpd/2.*/bin`, replacing * with the apache2 version number.
 
