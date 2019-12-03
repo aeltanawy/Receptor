@@ -28,12 +28,47 @@ This initial configuration is done by the application administrator, or your loc
   pip install -r requirements.txt
   ```
 
+Configure Receptor
+------------------
+1. `cd` into your cloned local `new-Receptor` repository
+
+2. Change `receptor.config` file by changing the values of the following variables:
+  - **DB_USER**: your username to access the postgresql database
+  - **DB_PASS**: your password to access the postgresql database
+  - **ENVVARS_PATH**: the path to httpd `envvars` file
+  - **HTTPD_PATH**: the path to httpd installation where `httpd.conf` can be located
+  - **ADMIN_EMAIL**: the administrator email where users can inquire to in case of server errors
+  - **RECEPTOR_DIR**: the path to the cloned local `new-Receptor` repository
+  - **PYTHON_PATH**: the path to your virtual environment `site-packages` directory
+
+
+3. Load the configuration `receptor.config` file to initialize the parameters
+```
+source receptor.config
+```
+
+4. In `templates/home.html`, change **your lab** with your actual lab name to appear on Receptor homepage.
+
+
+5. Run database migrations
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+
+6. Create superuser(s)
+```
+python manage.py createsuperuser
+```
+Follow the instructions in your terminal
+
 
 Configure Receptor with Apache2 and mod-wsgi
 --------------------------------------------
 ## Install apache2
 
-**On MacOS using homebrew**
+**Mac**
+  using homebrew
   ```
   brew install httpd
   ```
@@ -46,40 +81,10 @@ Configure Receptor with Apache2 and mod-wsgi
   - The [APACHE HTTP SERVER PROJECT](http://httpd.apache.org/docs/current/platform/windows.html) explains the steps for Microsoft Windows.
 
 
-Configure Receptor
-------------------
-1. `cd` into your cloned local `new-Receptor` repository
-2. Run database migrations
-```
-python manage.py makemigrations
-python manage.py migrate
-```
-3. Create superuser(s)
-```
-python manage.py createsuperuser
-```
-Follow the instructions in your terminal
-
-4. Change `receptor.config` file by changing the values of the following variables:
-  - **DB_USER**: your username to access the postgresql database
-  - **DB_PASS**: your password to access the postgresql database
-  - **ENVVARS_PATH**: the path to httpd `envvars` file
-  - **HTTPD_PATH**: the path to httpd installation where `httpd.conf` can be located
-  - **ADMIN_EMAIL**: the administrator email where users can inquire to in case of server errors
-  - **RECEPTOR_DIR**: the path to the cloned local `new-Receptor` repository
-  - **PYTHON_PATH**: the path to your virtual environment `site-packages` directory
-
-
-5. In `templates/home.html`, change **your lab** with your actual lab name to appear on Receptor homepage.
-
-
 Running Receptor with Apache2 and mod_wsgi
 ------------------------------------------
-Run Receptor:
-```
-source receptor.config
-sudo apachectl start
-```
+Run Receptor: `sudo apachectl start`
+
 Stop Receptor: `sudo apachectl stop`
 
 Restart Receptor: `sudo apachectl restart`
