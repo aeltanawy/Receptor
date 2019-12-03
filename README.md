@@ -18,15 +18,15 @@ This initial configuration is done by the application administrator, or your loc
 3. Activate virtual environment
 
 4. Clone Receptor application
-     - Clone the new-receptor application
-    ```
-    git clone https://github.com/aeltanawy/new-Receptor.git
-    ```
-    - Install [pip](https://pip.pypa.io/en/stable/installing/) inside the virtual environment
-    - Install Receptor `requirements.txt` file
-    ```
-    pip install -r requirements.txt
-    ```
+  - Clone the new-receptor application
+      ```
+      git clone https://github.com/aeltanawy/new-Receptor.git
+      ```
+  - Install [pip](https://pip.pypa.io/en/stable/installing/) inside the virtual environment
+  - Install Receptor `requirements.txt` file
+      ```
+      pip install -r requirements.txt
+      ```
 
 Configure Receptor
 ------------------
@@ -67,37 +67,40 @@ Configure Receptor with Apache2 and mod-wsgi
 --------------------------------------------
 **Install apache2**
 
-    **Mac**
-      using homebrew
-      ```
-      brew install httpd
-      ```
-      - Mac comes with its native version of apache2. For the Receptor application, when installing apache2 with homebrew, you will have to create `envvars` file in `/usr/local/Cellar/httpd/2.*/bin`, replacing * with the apache2 version number.
+  - **Mac** using homebrew
 
-    **Linux**
-      - The [APACHE HTTP SERVER PROJECT](http://httpd.apache.org/docs/current/platform/rpm.html) explains the steps for Redhat / CentOS / Fedora.
+        ```
+        brew install httpd
+        ```
 
-    **Windows**
-      - The [APACHE HTTP SERVER PROJECT](http://httpd.apache.org/docs/current/platform/windows.html) explains the steps for Microsoft Windows.
+    Mac comes with its native version of apache2. For the Receptor application, when installing apache2 with homebrew, you will have to create `envvars` file in `/usr/local/Cellar/httpd/2.*/bin`, replacing * with the apache2 version number.
+
+  - **Linux**
+
+    The [APACHE HTTP SERVER PROJECT](http://httpd.apache.org/docs/current/platform/rpm.html) explains the steps for Redhat / CentOS / Fedora.
+
+  - **Windows**
+
+    The [APACHE HTTP SERVER PROJECT](http://httpd.apache.org/docs/current/platform/windows.html) explains the steps for Microsoft Windows.
 
 
 Running Receptor with Apache2 and mod_wsgi
 ------------------------------------------
-    Run Receptor: `sudo apachectl start`
+  Run Receptor: `sudo apachectl start`
 
-    Stop Receptor: `sudo apachectl stop`
+  Stop Receptor: `sudo apachectl stop`
 
-    Restart Receptor: `sudo apachectl restart`
+  Restart Receptor: `sudo apachectl restart`
 
 
 User access
 -----------
-    Enter `localhost` in a browser.
+  Enter `localhost` in a browser.
 
 
 Receptor logs location
 -------------------
-    Logs are located in `site/logs`
+  Logs are located in `site/logs`
 
 
 User to change password
