@@ -1,19 +1,17 @@
-<nav class="navbar navbar-expand navbar-dark flex-md-column flex-row align-items-start py-2">
-  <div class="collapse navbar-collapse">
-    <ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
-      <li class="nav-item">
-        <a class="nav-link pl-0 text-nowrap" href="/"><span class="font-weight-bold">Home</span></a>
-      </li>
-			<li class="dropdown">
-		    <a class="dropdown-toggle" id="menu" data-toggle="dropdown" href="#">Oligos
-		    <span class="caret"></span></a>
-		    <ul class="dropdown-menu" id="dropdown">
-					<a a class="dropdown-item" href="/oligos/">View list</a>
-		      <a a class="dropdown-item" href="{% url 'oligos:new' %}">Add new oligo</a>
-		      <a class="dropdown-item disabled" href="#">Batch submission</a>
-		      <a class="dropdown-item disabled" href="#">Sequence search</a>
-		    </ul>
-		  </li>
-		</ul>
-	</div>
+<nav class="navbar navbar-dark align-items-start py-2">
+  <ul class="flex-md-column navbar-nav justify-content-between">
+    <li class="nav-item">
+      <a class="nav-link pl-0 text-nowrap" href="/"><span class="font-weight-bold">Home</span></a>
+    </li>
+		<li class="dropdown">
+	    <a class="dropdown-toggle" id="menu" data-toggle="dropdown" href="#">Oligos
+	    <span class="caret"></span></a>
+	    <ul class="dropdown-menu" id="dropdown">
+				<a a class="dropdown-item" href="/oligos/">View list</a>
+	      <a a class="dropdown-item" href="{% url 'oligos:new' %}">Add new oligo</a>
+	      <a class="dropdown-item disabled" href="#">Batch submission</a>
+	      <a class="dropdown-item disabled" href="#">Sequence search</a>
+	    </ul>
+	  </li>
+	</ul>
 </nav>
