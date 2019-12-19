@@ -28,11 +28,29 @@ This initial configuration is done by the application administrator, or your loc
       pip install -r requirements.txt
       ```
 
+
+Configure Receptor with Apache2 and mod-wsgi
+--------------------------------------------
+**Mac**
+  - Install Apache2 using homebrew
+  ```
+  brew install httpd
+  ```
+  - Mac comes with its native version of apache2. For the Receptor application, when installing apache2 with homebrew, you will have to create `envvars` file in `/usr/local/Cellar/httpd/2.*/bin`, replacing * with the apache2 version number.
+
+**Linux**
+  - To install Apache2, the [APACHE HTTP SERVER PROJECT](http://httpd.apache.org/docs/current/platform/rpm.html) explains the steps for Redhat / CentOS / Fedora.
+
+**Windows**
+  - To install Apache2, the [APACHE HTTP SERVER PROJECT](http://httpd.apache.org/docs/current/platform/windows.html) explains the steps for Microsoft Windows.
+
+
 Configure Receptor
 ------------------
 1. `cd` into your cloned local `Receptor` repository
 
 2. Change `receptor.config` file by changing the values of the following variables:
+    - **PLATFORM**: platform used windows/mac
     - **DB_USER**: your username to access the postgresql database
     - **DB_PASS**: your password to access the postgresql database
     - **ENVVARS_PATH**: the path to httpd `envvars` file
@@ -61,26 +79,6 @@ Configure Receptor
     python manage.py createsuperuser
     ```
     Follow the instructions in your terminal
-
-
-Configure Receptor with Apache2 and mod-wsgi
---------------------------------------------
-**Install apache2**
-
-  - **Mac** using homebrew
-      ```
-      brew install httpd
-      ```
-
-    Mac comes with its native version of apache2. For the Receptor application, when installing apache2 with homebrew, you will have to create `envvars` file in `/usr/local/Cellar/httpd/2.*/bin`, replacing * with the apache2 version number.
-
-  - **Linux**
-
-    The [APACHE HTTP SERVER PROJECT](http://httpd.apache.org/docs/current/platform/rpm.html) explains the steps for Redhat / CentOS / Fedora.
-
-  - **Windows**
-
-    The [APACHE HTTP SERVER PROJECT](http://httpd.apache.org/docs/current/platform/windows.html) explains the steps for Microsoft Windows.
 
 
 Running Receptor with Apache2 and mod_wsgi
