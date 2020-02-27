@@ -1,13 +1,12 @@
 from django.contrib.postgres.search import SearchQuery, SearchRank
 from django.contrib.postgres.search import SearchVector
-from django.contrib.auth.decorators import permission_required
-#from django.utils.decorators import method_decorator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.forms import ModelForm
+from django.contrib.auth.models import User, Permission
 
 from .models import Oligo
 
@@ -50,6 +49,14 @@ class OligoSearchView(ListView):
 
 class OligoDetailView(DetailView):
     model = Oligo
+
+    def get(self, request, pk):
+        oligo = Oligo.objects.get(pk=pk)
+        if request.user == oligo.user or request.user.is_superuser:
+            can_change = True
+        else:
+            can_change = False
+        return render(request, 'oligos/oligo_detail.html', {'oligo': oligo, 'can_change': can_change})
 
 
 class OligoUpdate(UpdateView):
