@@ -1,5 +1,5 @@
 coverage==4.5.4
-Django==2.2.10
+Django==2.2.13
 django-dotenv==1.4.2
 django-fontawesome-5==1.0.16
 mod-wsgi==4.6.8
