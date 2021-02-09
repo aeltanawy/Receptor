@@ -30,7 +30,7 @@
 	<p><strong>Primer position:</strong> {{ oligo.get_primer_position_display }}</p>
 	<p><strong>Primer partner:</strong> {{ oligo.primer_partner }}</p>
 	<br><br>
-	<ul class="flex-md flex-row navbar-nav w-25 justify-content-between">
+	<ul class="navbar-nav justify-content-between">
 		{% if can_change %}
 			<li><a href="{% url 'oligos:update' oligo.id %}">Edit</a></li>
 			<li><a href="{% url 'oligos:delete' oligo.id %}">Delete</a></li>
