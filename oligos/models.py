@@ -28,7 +28,7 @@ class Usage(models.Model):
 
 class Oligo(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    name = models.CharField(max_length=30, unique=True)
+    name = models.CharField(max_length=65, unique=True)
     sequence = models.CharField(max_length=200, blank=True)
     details = models.CharField(max_length=800, blank=True)
     create_date = models.DateTimeField(default=datetime.datetime.now)
