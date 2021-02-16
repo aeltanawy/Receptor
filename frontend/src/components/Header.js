@@ -8,7 +8,7 @@ class Header extends Component {
     <div className='header'>
       <div className='app-header'>
         <div className='logo'>
-          <img src='/receptor_logo.gif' width='300' alt=''/>
+          <img src='/receptor_logo.gif' alt=''/>
         </div>
         <nav className='top-menu'>
           <ul className='top-menu-items'>
@@ -17,12 +17,12 @@ class Header extends Component {
                 <span>Sign up</span>
               </Link>
             </li>
-              <span className="vertical-line" />
-              <li className='top-menu-text'>
-                <Link to='/login'>
-                    <span>Log in</span>
-                </Link>
-              </li>
+            <span className="vertical-line" />
+            <li className='top-menu-text'>
+              <Link to='/login'>
+                  <span>Log in</span>
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>

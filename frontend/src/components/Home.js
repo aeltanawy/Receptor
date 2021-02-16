@@ -2,8 +2,14 @@ import React from 'react';
 
 function Home() {
   return (
-    <div className='Home'>
-      <h1>Home</h1>
+    <div>
+      <h2>Welcome to your Lab Receptor!</h2>
+      <p>
+        Receptor is a web-based application for managing lab data. Modules, or apps, are accessed via the sidebar on the left. Login information is shown in the upper-right corner of the page.
+      </p>
+      <p>
+        For more information, please contact you department adminstrator.
+      </p>
     </div>
   )
 }
