@@ -12,20 +12,22 @@ import './App.css';
 function App() {
   return (
     <div className='app'>
-    <Router>
-      <Header />
-      <div className='body'>
-        <Navbar />
-        <div className='body-main'>
-          <Switch>
-            <Route path='/' exact component={Home} />
-            <Route path='/signup' exact component={SignUp} />
-            <Route path='/login' exact component={LogIn} />
-          </Switch>
+      <Router>
+        <Header />
+        <div className='body'>
+          <Navbar />
+          <div className='body-main'>
+            <Switch>
+              <Route path='/' exact component={Home} />
+              <Route path='/signup' exact component={SignUp} />
+              <Route path='/login' exact component={LogIn} />
+            </Switch>
+          </div>
         </div>
+      </Router>
+      <div className='footer'>
+        <p>Receptor 2020 by Thomas Oh and Abeer Eltanawy</p>
       </div>
-    </Router>
-
     </div>
   );
 }
