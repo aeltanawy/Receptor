@@ -1,107 +1,111 @@
 
 html, body {
-	height: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 body {
-	font-family: 'verdana', 'helvetica', sans-serif;
+  font-family: 'verdana', 'helvetica', sans-serif;
 }
 
 p {
-	margin: 0;
+  margin: 0;
   padding: 0;
 }
 
 label {
-	padding: 4px;
-	font-weight: bold;
-	vertical-align: top;
+  padding: 4px;
+  font-weight: bold;
+  vertical-align: top;
 }
 
 #content {
-	background-image: url('/static/images/curve_joint1.gif');
-	background-position: top left;
-	background-repeat: no-repeat;
+  background-image: url('/static/images/curve_joint1.gif');
+  background-position: top left;
+  background-repeat: no-repeat;
 }
 
 #header {
-	display: inline-block;
-	width: 100%;
-	padding-bottom: 20px;
-	padding-right: 20px;
-	background-color: black;
-	background-image: url('/static/images/corner_logo4.gif');
-	background-repeat: no-repeat;
-	text-align:right;
-	color: white;
+  display: inline-block;
+  width: 100%;
+  padding-bottom: 20px;
+  padding-right: 20px;
+  background-color: black;
+  background-image: url('/static/images/corner_logo4.gif');
+  background-repeat: no-repeat;
+  text-align:right;
+  color: white;
 }
 #header a{
-	color: white;
-	text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 #sidebar {
-	display: block;
-	float: left;
-	min-width: 138px;
-	padding-top: 20px;
-	background-color: black;
-	background-image: url('/static/images/curve_joint2.gif');
-	background-position: bottom right;
-	background-repeat: no-repeat;
-	text-align: left;
+  display: block;
+  float: left;
+  min-width: 138px;
+  padding-top: 20px;
+  background-color: black;
+  background-image: url('/static/images/curve_joint2.gif');
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  text-align: left;
 }
 
 #fill-height {
-	min-height: 90.5%;
+  min-height: 90.5%;
 }
 
 #content h2, h3, h4 {
-	color: #13839B;
+  color: #13839B;
 }
 
 #menu {
-	text-decoration: none;
-	color:white;
+  text-decoration: none;
+  color:white;
 }
 
 #dropdown {
-	background-color: rgb(197, 194, 198);
-	opacity: .95;
-	padding: 5px;
+  background-color: rgb(197, 194, 198);
+  opacity: .95;
+  padding: 5px;
 }
 
 table.datatable {
-	width: 850px;
-	overflow: hidden;
-	table-layout: fixed;
-	border-spacing: 0px 5px;
+  width: 1000px;
+  overflow: hidden;
+  table-layout: fixed;
+  border-spacing: 5px 5px;
 
 }
 #content td {
-	overflow:hidden;
+  overflow:hidden;
 }
-table.datatable a{
-}
-table.datatable th{
-	text-align: left;
+
+table.datatable {
+  text-align: left;
 }
 table.datatable li{
-	list-style-position:inside;
+  list-style-position:inside;
 }
 
 .multi_line {
-	white-space: pre-wrap;
+  white-space: pre-wrap;
 }
 
-div.pagination {
-	float: right;
+.pagination {
+  float: right;
 }
 
 #footer {
-	font-size: 80%;
-	color: gray;
-	padding: 2px;
-	text-align: center;
-	width: 100%;
+  font-size: 80%;
+  color: gray;
+  padding: 2px;
+  text-align: center;
+  width: 100%;
+}
+
+.long-text {
+  background-color: blue;
 }

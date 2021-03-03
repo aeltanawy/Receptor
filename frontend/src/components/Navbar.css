@@ -1,0 +1,41 @@
+.nav-menu {
+    background: #020413;
+    min-height: calc(100vh - 100px);
+    width: 160px;
+    float: left;
+    padding-top: 10px;
+}
+
+.nav-item {
+    padding: 20px 0px 0px 10px;
+
+}
+
+.nav-item span {
+    padding-left: 10px;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.nav-item a:hover {
+    color: #FFBA08;
+}
+
+.dropdown {
+    color: #FFFFFF;
+}
+
+.dropdown-items {
+    border-radius: 15px 15px 15px 15px;
+}
+
+.dropdown-items a {
+    color: #020413;
+}
+
+.nav-item a:hover {
+    background-color: #020413;
+}
