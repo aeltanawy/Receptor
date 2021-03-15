@@ -11,12 +11,12 @@ import os
 import sys
 
 from django.core.wsgi import get_wsgi_application
-import dotenv
+# import dotenv
 
 
-dotenv.read_dotenv(override=True)
+# dotenv.load_dotenv(override=True)
 
-sys.path.append(os.getenv("RECEPTOR_DIR"))
+# sys.path.append(os.getenv("RECEPTOR_DIR"))
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'receptor.settings')
 

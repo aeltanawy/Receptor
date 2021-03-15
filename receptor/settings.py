@@ -1,5 +1,7 @@
 import os
 
+from decouple import config
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -9,14 +11,24 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+SECRET_KEY = config("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
-DEBUG = os.getenv("DJANGO_DEBUG")
+DEBUG = config("DJANGO_DEBUG")
 
 ALLOWED_HOSTS = []
 
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 25,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+            'knox.auth.TokenAuthentication',
+        ),
+    'DATETIME_FORMAT': "%m/%d/%Y %H:%M:%S",
+    # 'EXCEPTION_HANDLER': 'backend.utils.custom_exception_handler',
+}
 
 # Application definition
 
@@ -30,8 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'coverage',
-    'fontawesome_5',
+    'fontawesome_5', #TODO: remove
     'mod_wsgi.server',
+    'django_filters',
+    'rest_framework',
+    'corsheaders',
+    'knox',
 ]
 
 MIDDLEWARE = [
@@ -71,9 +87,9 @@ WSGI_APPLICATION = 'receptor.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv("DB_NAME"),
-        'USER': os.getenv("DB_USER"),
-        'PASSWORD': os.getenv("DB_PASS"),
+        'NAME': config("DB_NAME"),
+        'USER': config("DB_USER"),
+        'PASSWORD': config("DB_PASS"),
         'HOST': 'localhost',
         'PORT': '5432',
         #'ENGINE': 'django.db.backends.sqlite3',

@@ -37,4 +37,4 @@ function NavbarMenu() {
   )
 }
 
-export default NavbarMenu
+export default NavbarMenu;

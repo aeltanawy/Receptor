@@ -1,13 +1,20 @@
 from django.urls import path
 from django.conf.urls import url
 from django.contrib.auth.decorators import permission_required
+from django.urls import include, path
+from django.contrib import admin
+from rest_framework import routers
 
 from . import views
+
+router = routers.DefaultRouter()
+router.register('oligos', views.OligoViewset, 'oligos')
 
 app_name = 'oligos'
 urlpatterns = [
     # /oligos/
-    path('', views.OligoListView.as_view(), name='index'),
+    path('', include(router.urls)),
+    # path('', views.OligoListView.as_view(), name='index'),
     path('generic_search/', views.OligoSearchView.as_view(), name='generic_search'),
     # /oligos/<int:oligo_id>/
     path('<int:pk>/', views.OligoDetailView.as_view(), name='detail'),

@@ -28,8 +28,19 @@
     color: #FFFFFF;
 }
 
+.top {
+    margin-left: 50px;
+}
+
+.top a:hover{
+    color: #FFBA08;
+    background: #020413;
+    text-decoration: none;
+}
+
 .dropdown-items {
     border-radius: 15px 15px 15px 15px;
+    width: 15px;
 }
 
 .dropdown-items a {
