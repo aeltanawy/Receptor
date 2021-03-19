@@ -17,7 +17,7 @@ export const getOligos = () => async (dispatch, getState) => {
     const res = await axios.get('/oligos/oligos/', tokenConfig(getState));
     dispatch({
         type: GET_OLIGOS,
-        payload: res.data
+        payload: res.headers
     });
 };
 
