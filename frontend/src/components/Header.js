@@ -21,7 +21,7 @@ function Header(props) {
         <span>{user ? user.username : ''}</span>
       </Dropdown.Toggle>
       <Dropdown.Menu className='dropdown-items top'>
-        <Dropdown.Item>
+        <Dropdown.Item href='/'>
           <div onClick={props.logout}>Logout</div>
         </Dropdown.Item>
       </Dropdown.Menu>
