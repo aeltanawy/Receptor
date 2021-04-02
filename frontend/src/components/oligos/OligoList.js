@@ -19,6 +19,7 @@ function OligoList(props) {
   const PER_PAGE= 5;
 
   const { isAuthenticated } = props.auth;
+  const token = store.getState().auth.token;
 
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -26,25 +27,28 @@ function OligoList(props) {
   const pageCount = Math.ceil(data.length / PER_PAGE);
 
   useEffect(() => {
+    async function getData() {
+      const auth_token = {
+      headers: {
+        'Authorization': `Token ${token}`
+      }};
+      const res = await axios.get(`/oligos/oligos`, auth_token);
+      setData(res.data);
+    }
     getData();
     // props.getOligos();
     // setData(props.oligos);
-  },[]);
-
-  const getData = async() => {
-    const auth_token = {
-    headers: {
-      'Authorization': `Token ${store.getState().auth.token}`
-    }};
-    const res = await axios.get(`/oligos/oligos`, auth_token);
-    setData(res.data);
-  }
+  }, [token]);
 
   let currentPageData = (data.length !== 0) ? data
     .slice(offset, offset + PER_PAGE)
     .map( oligo =>
       <tr key={oligo.id}>
-        <td>{oligo.oligo_name}</td>
+        <td>
+          <Link to={`/oligo_details/${oligo.id}`} oligoData={oligo}>
+            {oligo.oligo_name}
+          </Link>
+        </td>
         <td>{oligo.username}</td>
         <td>{oligo.gene_locus}</td>
         <td colSpan='2'>{oligo.sequence}</td>
@@ -102,7 +106,7 @@ function OligoList(props) {
 // export default OligoList;
 
 const mapStateToProps = state => ({
-  oligos: Object.values(state.oligos),
+  // oligos: Object.values(state.oligos),
   auth: state.auth
 });
 

@@ -50,3 +50,11 @@ thead {
 .pagination > li:last-child > span {
   border-radius: unset
 }
+
+.row span {
+  padding-left: 5px;
+}
+
+.btn {
+  margin-left: 20px;
+}
