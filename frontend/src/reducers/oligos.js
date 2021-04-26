@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import {
-  EDIT_OLIGO, GET_OLIGOS, GET_OLIGO, ADD_OLIGO
+  EDIT_OLIGO, GET_OLIGOS, GET_OLIGO, ADD_OLIGO, DELETE_OLIGO, BAD_REQUEST
 } from '../actions/types';
 
 
@@ -17,8 +17,15 @@ export default (state = {}, action) => {
     case EDIT_OLIGO:
       return {
         ...state,
-        ...action.payload
+        [action.payload.id]: action.payload
       };
+    case DELETE_OLIGO:
+      return _.omit(state, action.payload);
+    case BAD_REQUEST:
+      return {
+        ...state,
+        error: true,
+      }
     default:
       return state;
   }

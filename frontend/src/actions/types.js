@@ -14,3 +14,4 @@ export const GET_OLIGO = 'GET_OLIGO';
 export const ADD_OLIGO = 'ADD_OLIGO';
 export const DELETE_OLIGO = 'DELETE_OLIGO';
 export const EDIT_OLIGO = 'EDIT_OLIGO';
+export const BAD_REQUEST = 'BAD_REQUEST';

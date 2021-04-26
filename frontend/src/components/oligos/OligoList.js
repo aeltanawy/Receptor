@@ -7,7 +7,6 @@ import ReactPaginate from 'react-paginate';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import store from '../../store';
 // import { getOligos } from '../../actions/oligos';
 import './Oligos.css';
 import UnAuthorized from '../UnAuthorized';
@@ -19,7 +18,7 @@ function OligoList(props) {
   const PER_PAGE= 5;
 
   const { isAuthenticated } = props.auth;
-  const token = store.getState().auth.token;
+  const token = props.auth.token;
 
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -45,7 +44,7 @@ function OligoList(props) {
     .map( oligo =>
       <tr key={oligo.id}>
         <td>
-          <Link to={`/oligo_details/${oligo.id}`} oligoData={oligo}>
+          <Link to={`/oligo_details/${oligo.id}`}>
             {oligo.oligo_name}
           </Link>
         </td>

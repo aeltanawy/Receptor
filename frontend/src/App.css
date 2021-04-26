@@ -111,3 +111,7 @@ label {
   color: #D00000;
   padding: 0px 5px 10px 0px;
 }
+
+.btn {
+  margin-left: 0;
+}

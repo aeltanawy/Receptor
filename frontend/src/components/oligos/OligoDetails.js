@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 import { Container, Col, Row, Button } from 'react-bootstrap';
 
 import './Oligos.css';
-import store from '../../store';
 // import { getOligo } from '../../actions/oligos';
 
 
 function OligoDetails(props) {
 
-  const token = store.getState().auth.token;
+  // const token = store.getState().auth.token;
+  const token = props.auth.token;
 
   const [data, setData] = useState();
   const { user } = props.auth;
@@ -27,7 +27,6 @@ function OligoDetails(props) {
       setData(res.data);
     }
     getData();
-    console.log(data);
   }, [token, id]);
 
   const oligoData = data => {
@@ -69,10 +68,6 @@ function OligoDetails(props) {
                 <b>Modified:</b>
                 <span>{data.modified_date}</span>
               </Row>
-              {/* <Row>
-                <b>Synthesized at:</b>
-                <span>{data.synthesized}</span>
-              </Row> */}
               <Row>
                 <b>Concentration:</b>
                 <span>{data.concentration}</span>
@@ -133,12 +128,18 @@ function OligoDetails(props) {
           <br />
           <Row>
             {data.username === user.username ? (
-              <div>
-                <Button variant='primary' href={`/oligo/${id}/edit`}>Edit</Button>
-                <Button variant='primary' onClick={deleteOligo}>Delete</Button>
-              </div>
+              <React.Fragment>
+                <div className='button'>
+                  <Button variant='primary' href={`/oligo/${id}/edit`}>Edit</Button>
+                </div>
+                <div className='button'>
+                  <Button variant='primary' onClick={deleteOligo}>Delete</Button>
+                </div>
+              </React.Fragment>
             ):(null)}
-            <Button variant='primary' onClick={copyOligo}>Copy to New Oligo</Button>
+            <div className='button'>
+              <Button variant='primary' onClick={copyOligo}>Copy to New Oligo</Button>
+            </div>
           </Row>
         </div>
       ):(null)}

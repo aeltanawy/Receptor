@@ -13,9 +13,7 @@ import {
 import { login } from '../../actions/auth';
 
 
-let LoginForm = props => {
-
-  const fieldInput = ({ input, label, type, placeholder, meta: { touched, error } }) => {
+const fieldInput = ({ input, label, type, placeholder, meta: { touched, error } }) => {
     return (
       <Form.Group as={Row}>
         <Form.Label column sm={2}>{label}</Form.Label>
@@ -34,7 +32,9 @@ let LoginForm = props => {
         </Col>
       </Form.Group>
     )
-  }
+  };
+
+let LoginForm = props => {
 
   const hiddenField = ({ type, meta: { error } }) => {
     return (

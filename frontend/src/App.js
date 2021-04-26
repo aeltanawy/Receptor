@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import OligoList from './components/oligos/OligoList';
 import OligoDetails from './components/oligos/OligoDetails';
+import OligoAddEdit from './components/oligos/OligoAddEdit';
 import RegisterForm from './components/auth/RegisterForm';
 import LoginForm from './components/auth/LoginForm';
 import './App.css';
@@ -36,6 +37,8 @@ function App(props) {
                 <Route path='/login' exact component={LoginForm} />
                 <Route path='/oligos' component={OligoList} />
                 <Route path='/oligo_details/:id' component={OligoDetails} />
+                <Route path='/add' component={OligoAddEdit} />
+                <Route path='/edit/:id' component={OligoAddEdit} />
               </Switch>
             </div>
           </div>
@@ -49,17 +52,3 @@ function App(props) {
 }
 
 export default App;
-
-// const mapStateToProps = state => {
-//   return {
-//     isAuthenticated: state.token !== null
-//   }
-// }
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     onTryAutoSignup: () => dispatch(actions.authCheckState())
-//   }
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
