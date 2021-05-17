@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect , useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import axios from 'axios';
@@ -50,11 +50,13 @@ const fieldInput = ({
     )
   };
 
-let OligoForm = props => {
+let OligoForm = (props, { mode }) => {
 
   const { token } = props.auth;
+  const { handleSubmit, reset } = props;
   const [usageData, setUsageData] = useState([]);
   const primerPositionData = ['Choose...', 'Sense', 'Antisense', 'Unspecified'];
+  const history = useHistory();
 
   useEffect(() => {
     async function getOptionsData() {
@@ -80,16 +82,20 @@ let OligoForm = props => {
       })
     };
     props.onSubmit(formValues);
+    // TODO: fix the redirect to oligos list after form submission
+    // history.push('/oligos');
   };
 
   return (
-    <Form className='frm' onSubmit={props.handleSubmit(onSubmit)}>
+    <Form className='frm'
+      onSubmit={handleSubmit(onSubmit)}
+      onReset={reset}
+    >
       <Field
         name='username'
         type='text'
         component={fieldInput}
         label='User'
-        text = 'Required'
         readOnly
       />
       <Field
@@ -98,7 +104,6 @@ let OligoForm = props => {
         component={fieldInput}
         label='Oligo Name'
         text = 'Required'
-        validate={required}
       />
       <Field
         name='sequence'
@@ -167,12 +172,29 @@ let OligoForm = props => {
         label='Grade'
       />
       <br />
-      <Button variant='primary' type='submit'>Register</Button>
+      {/* TODO: to fix button spacing */}
+        <Button variant='primary' type='submit'>Submit</Button>
+      {/* <div className='button'>
+        <Button variant='primary' type='submit' onClick={reset}>Clear Form</Button>
+      </div> */}
+        <Button variant='primary'
+          onClick={() => history.goBack()}
+        >
+          Cancel
+        </Button>
     </Form>
   );
 }
 
-const required = value => (value ? undefined : 'Required');
+// const required = value => (value ? undefined : 'This field is required');
+
+const validate = values => {
+    const result = {};
+    if (!values.oligo_name) {
+      result.oligo_name = 'Please enter an Oligo name';
+    };
+    return result;
+  }
 
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -183,8 +205,9 @@ OligoForm = connect(
 )(OligoForm);
 
 export default reduxForm({
-  form: 'oligoForm',
+  form: 'createOligo',
+  validate,
   touchOnBlur: false,
   enableReinitialize: true,
-  // keepDirtyOnReinitialize : true
+// keepDirtyOnReinitialize : true
 })(OligoForm);

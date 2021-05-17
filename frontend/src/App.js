@@ -14,7 +14,6 @@ import LoginForm from './components/auth/LoginForm';
 import './App.css';
 import { loadUser } from './actions/auth';
 import store from './store';
-import history from './history';
 
 
 function App(props) {
@@ -26,7 +25,7 @@ function App(props) {
   return (
     <Provider store={store}>
       <div className='app'>
-        <Router history={history}>
+        <Router>
           <Header />
           <div className='body' {...props}>
             <Navbar />
@@ -38,7 +37,8 @@ function App(props) {
                 <Route path='/oligos' component={OligoList} />
                 <Route path='/oligo_details/:id' component={OligoDetails} />
                 <Route path='/add' component={OligoAddEdit} />
-                <Route path='/edit/:id' component={OligoAddEdit} />
+                <Route path='/edit/:id/' component={OligoAddEdit} />
+                <Route path='/copy/:id/' component={OligoAddEdit} />
               </Switch>
             </div>
           </div>

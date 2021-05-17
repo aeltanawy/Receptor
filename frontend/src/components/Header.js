@@ -50,7 +50,11 @@ function Header(props) {
     <div className='header'>
       <div className='app-header'>
         <div className='logo'>
-          <img className='logo-img' src='/receptor_logo.gif' alt=''/>
+          <img
+            className='logo-img'
+            src='/receptor_logo.gif'
+            alt='Receptor application for storing oligos'
+          />
         </div>
         <div className='auth'>
           { isAuthenticated ? userLinks : guestLinks }

@@ -2,7 +2,6 @@ import axios from 'axios';
 import { tokenConfig } from './auth';
 import { reset, stopSubmit } from 'redux-form';
 
-import history from '../history';
 import {
   GET_OLIGOS,
   GET_OLIGO,
@@ -12,6 +11,7 @@ import {
   BAD_REQUEST
 } from './types';
 
+axios.defaults.baseURL = '/';
 
 // get oligos
 export const getOligos = () => async (dispatch, getState) => {
@@ -43,39 +43,52 @@ export const addOligo = formValues => async (dispatch, getState) => {
       type: ADD_OLIGO,
       payload: res.data
     });
-    dispatch(reset('oligoForm'));
+    dispatch(reset('createOligo'));
   } catch (err) {
     dispatch({
       type: BAD_REQUEST
     });
-    dispatch(stopSubmit('oligoForm', err.response.data));
-  }
+    dispatch(stopSubmit('createOligo', err.response.data));
+  };
 };
 
 // delete oligo
 export const deleteOligo = id => async (dispatch, getState) => {
-  const res = await axios.delete(
-    `oligos/oligos/${id}`,
-    tokenConfig(getState)
-  );
-  dispatch({
-    type: DELETE_OLIGO,
-    payload: res.data
-  });
-  history.push('/'); //to take us to home page after removing an object
+  try {
+    const res = await axios.delete(
+      `oligos/oligos/${id}`,
+      tokenConfig(getState)
+    );
+    dispatch({
+      type: DELETE_OLIGO,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: BAD_REQUEST
+    });
+    dispatch(stopSubmit('createOligo', err.response.data));
+  };
 };
 
 // edit oligo
 export const editOligo = (id, formValues) => async (dispatch, getState) => {
-  const res = await axios.patch(
-    `oligos/oligos/${id}`,
-    formValues,
-    tokenConfig(getState)
-  );
-  dispatch({
-    type: EDIT_OLIGO,
-    payload: res.data
-  });
-  history.push('/'); //to take us to homepage after removing an object
+  try {
+    const res = await axios.patch(
+      `oligos/oligos/${id}/`,
+      formValues,
+      tokenConfig(getState),
+    );
+    dispatch({
+      type: EDIT_OLIGO,
+      payload: res.data
+    });
+    dispatch(reset('createOligo'));
+  } catch (err) {
+    dispatch({
+      type: BAD_REQUEST
+    });
+    dispatch(stopSubmit('createOligo', err.response.data));
+  };
 };
 

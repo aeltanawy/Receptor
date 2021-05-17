@@ -1,55 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useParams, Redirect, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Container, Col, Row, Button } from 'react-bootstrap';
 
 import './Oligos.css';
-// import { getOligo } from '../../actions/oligos';
+import { getOligo, deleteOligo } from '../../actions/oligos';
 
 
 function OligoDetails(props) {
 
-  // const token = store.getState().auth.token;
-  const token = props.auth.token;
-
-  const [data, setData] = useState();
   const { user } = props.auth;
   const { id } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
-    async function getData() {
-      const auth_token = {
-      headers: {
-        'Authorization': `Token ${token}`
-      }};
-      const res = await axios.get(`/oligos/oligos/${id}`, auth_token);
-      setData(res.data);
-    }
-    getData();
-  }, [token, id]);
-
-  const oligoData = data => {
-    return;
-  };
-
-  const editOligo = () => {
-    return;
-  };
+    props.getOligo(id);
+  }, [id]);
 
   const deleteOligo = () => {
-    return;
-  };
-
-  const copyOligo = () => {
-    return;
+    props.deleteOligo(id);
+    history.push('/oligos');
   };
 
   return (
     <React.Fragment>
-      {data ? (
+      { props.oligo ? (
         <div className='detail'>
-          <h2 className='title'><b>{data.oligo_name}</b> Oligo Details</h2>
+          <h2 className='title'><b>{props.oligo.oligo_name}</b> Oligo Details</h2>
           <br />
           <Container>
             <Col>
@@ -58,38 +35,40 @@ function OligoDetails(props) {
               </Row>
               <Row>
                 <b>User:</b>
-                <span>{data.username}</span>
+                <span>{props.oligo.username}</span>
               </Row>
               <Row>
                 <b>Created:</b>
-                <span>{data.create_date}</span>
+                <span>{props.oligo.create_date}</span>
               </Row>
               <Row>
                 <b>Modified:</b>
-                <span>{data.modified_date}</span>
+                <span>{props.oligo.modified_date}</span>
               </Row>
               <Row>
                 <b>Concentration:</b>
-                <span>{data.concentration}</span>
+                <span>{props.oligo.concentration}</span>
               </Row>
               <Row>
                 <b>Grade:</b>
-                <span>{data.grade}</span>
+                <span>{props.oligo.grade}</span>
               </Row>
               <Row>
                 <b>Usage:</b>
               </Row>
-              <Row>
-                { data.usages && data.usages.map( usage => {
-                  return (
-                    <li>usage</li>
-                  )
-                })}
-              </Row>
+              { props.oligo.usages && props.oligo.usages.map( (usage, i) => {
+                return (
+                  <Row key={i}>
+                    <li>{usage}</li>
+                  </Row>
+                )
+              })}
               <br />
               <Row>
                 <h4 className='title'>Details</h4>
-                <span>{data.details}</span>
+              </Row>
+              <Row>
+                <span>{props.oligo.details}</span>
               </Row>
               <br />
               <Row>
@@ -97,11 +76,11 @@ function OligoDetails(props) {
               </Row>
               <Row>
                 <b>Sequence:</b>
-                <span>{data.sequence}</span>
+                <span>{props.oligo.sequence}</span>
               </Row>
               <Row>
                 <b>Length:</b>
-                <span>{data.sequence.length}</span>
+                <span>{props.oligo.sequence.length}</span>
               </Row>
               <br />
               <Row>
@@ -109,52 +88,52 @@ function OligoDetails(props) {
               </Row>
               <Row>
                 <b>Organism:</b>
-                <span>{data.organism}</span>
+                <span>{props.oligo.organism}</span>
               </Row>
               <Row>
                 <b>Gene Locus:</b>
-                <span>{data.gene_locus}</span>
+                <span>{props.oligo.gene_locus}</span>
               </Row>
               <Row>
                 <b>Primer Position:</b>
-                <span>{data.primer_position}</span>
+                <span>{props.oligo.primer_position}</span>
               </Row>
               <Row>
                 <b>Primer Partner:</b>
-                <span>{data.primer_partner}</span>
+                <span>{props.oligo.primer_partner}</span>
               </Row>
             </Col>
           </Container>
           <br />
           <Row>
-            {data.username === user.username ? (
+            {props.oligo.username === user.username ? (
               <React.Fragment>
                 <div className='button'>
-                  <Button variant='primary' href={`/oligo/${id}/edit`}>Edit</Button>
+                  <Button variant='primary' href={`/edit/${id}/`}>Edit</Button>
                 </div>
                 <div className='button'>
                   <Button variant='primary' onClick={deleteOligo}>Delete</Button>
                 </div>
               </React.Fragment>
             ):(null)}
-            <div className='button'>
-              <Button variant='primary' onClick={copyOligo}>Copy to New Oligo</Button>
-            </div>
+            {/* <div className='button'>
+              <Button variant='primary' href={`/copy/${id}/`}>Copy to New Oligo</Button>
+            </div> */}
           </Row>
         </div>
-      ):(null)}
+      ) : null }
     </React.Fragment>
   )
 }
 
 // export default OligoDetails;
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   auth: state.auth,
-  // oligo: state.oligos,
+  oligo: state.oligos[ownProps.match.params.id],
 });
 
 export default connect(
   mapStateToProps,
-  // { getOligo }
+  { getOligo, deleteOligo }
 )(OligoDetails);

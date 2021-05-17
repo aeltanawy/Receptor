@@ -8,7 +8,6 @@ import OligoForm from './OligoForm';
 
 function OligoAddEdit(props) {
 
-  const [data, setData] = useState();
   const [mode, setMode] = useState(undefined);
   const [user, setUser] = useState('');
   const { id } = useParams();
@@ -19,8 +18,9 @@ function OligoAddEdit(props) {
   };
 
   useEffect(() => {
+    // TODO: differentiate between edit, copy
     if (!isAddMode) {
-      getOligo(id);
+      props.getOligo(id);
       // setData(props.oligo);
       setMode('Edit');
     } else {
@@ -37,7 +37,10 @@ function OligoAddEdit(props) {
       { user ?
         <OligoForm
           onSubmit={onSubmit}
-          initialValues={{'username': user}}
+          initialValues={{
+            'username': user,
+            ...props.oligo
+          }}
         />
         : null
       }
@@ -46,10 +49,8 @@ function OligoAddEdit(props) {
   )
 }
 
-// export default OligoAddEdit;
-
-const mapStateToProps = state => ({
-  oligo: state.oligos,
+const mapStateToProps = (state, ownProps) => ({
+  oligo: state.oligos[ownProps.match.params.id],
   auth: state.auth
 });
 

@@ -53,8 +53,11 @@ function OligoList(props) {
         <td colSpan='2'>{oligo.sequence}</td>
         <td colSpan='2'>{oligo.details}</td>
       </tr>
-    ) : <td colSpan='7'>No oligos in the database.</td>;
-
+    ) : (
+      <tr>
+        <td colSpan='7'>No oligos in the database.</td>
+      </tr>
+    );
 
   const handlePageClick = (e) => {
     setCurrentPage(e.selected);
