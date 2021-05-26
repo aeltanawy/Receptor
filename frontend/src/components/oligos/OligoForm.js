@@ -11,6 +11,8 @@ import {
   Col
 } from 'react-bootstrap';
 
+import './Oligos.css';
+
 
 const fieldInput = ({
     input, label, text, value, type=undefined,
@@ -72,18 +74,11 @@ let OligoForm = (props, { mode }) => {
   }, [token])
 
   const onSubmit = formValues => {
-    if (formValues.selected_usages) {
-      formValues.usages = [];
-      formValues.selected_usages.map( choice => {
-        const pk = usageData.find( item => item.usage === choice).id;
-        return (
-          formValues.usages = [...formValues.usages, pk]
-        );
-      })
-    };
     props.onSubmit(formValues);
-    // TODO: fix the redirect to oligos list after form submission
-    // history.push('/oligos');
+    history.push('/oligos');
+
+    // refresh /oligos
+    history.go(0);
   };
 
   return (
@@ -133,7 +128,7 @@ let OligoForm = (props, { mode }) => {
         label='Primer Partner'
       />
       <Field
-        name='selected_usages'
+        name='usages'
         as='select'
         multiple={true}
         options={usageData}
@@ -172,16 +167,21 @@ let OligoForm = (props, { mode }) => {
         label='Grade'
       />
       <br />
-      {/* TODO: to fix button spacing */}
-        <Button variant='primary' type='submit'>Submit</Button>
-      {/* <div className='button'>
-        <Button variant='primary' type='submit' onClick={reset}>Clear Form</Button>
-      </div> */}
-        <Button variant='primary'
-          onClick={() => history.goBack()}
-        >
-          Cancel
-        </Button>
+      <Row>
+        <div className='button'>
+          <Button variant='primary' type='submit'>Submit</Button>
+        </div>
+        {/* <div className='button'>
+          <Button variant='primary' type='submit' onClick={reset}>Clear Form</Button>
+        </div> */}
+        <div className='button'>
+          <Button variant='primary'
+            onClick={() => history.goBack()}
+          >
+            Cancel
+          </Button>
+        </div>
+      </Row>
     </Form>
   );
 }

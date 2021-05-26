@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { useParams, Redirect, useHistory } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Container, Col, Row, Button } from 'react-bootstrap';
+import { useAlert } from 'react-alert';
 
 import './Oligos.css';
 import { getOligo, deleteOligo } from '../../actions/oligos';
@@ -12,14 +13,19 @@ function OligoDetails(props) {
   const { user } = props.auth;
   const { id } = useParams();
   const history = useHistory();
+  const alert = useAlert();
 
   useEffect(() => {
     props.getOligo(id);
   }, [id]);
 
   const deleteOligo = () => {
-    props.deleteOligo(id);
-    history.push('/oligos');
+    const oligo_name = props.oligo.oligo_name;
+    if (window.confirm(`Are you sure you want to delete '${oligo_name}'?`)) {
+      props.deleteOligo(id);
+      alert.show(`Oligo '${oligo_name}' has been deleted!`);
+      history.push('/oligos');
+    };
   };
 
   return (
@@ -39,7 +45,7 @@ function OligoDetails(props) {
               </Row>
               <Row>
                 <b>Created:</b>
-                <span>{props.oligo.create_date}</span>
+                <span>{props.oligo.created_date}</span>
               </Row>
               <Row>
                 <b>Modified:</b>
@@ -108,7 +114,7 @@ function OligoDetails(props) {
           <Row>
             {props.oligo.username === user.username ? (
               <React.Fragment>
-                <div className='button'>
+                <div className='button loffset'>
                   <Button variant='primary' href={`/edit/${id}/`}>Edit</Button>
                 </div>
                 <div className='button'>

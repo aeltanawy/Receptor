@@ -55,19 +55,18 @@ export const addOligo = formValues => async (dispatch, getState) => {
 // delete oligo
 export const deleteOligo = id => async (dispatch, getState) => {
   try {
-    const res = await axios.delete(
-      `oligos/oligos/${id}`,
+    await axios.delete(
+      `oligos/oligos/${id}/`,
       tokenConfig(getState)
     );
     dispatch({
       type: DELETE_OLIGO,
-      payload: res.data
+      payload: id
     });
   } catch (err) {
     dispatch({
       type: BAD_REQUEST
     });
-    dispatch(stopSubmit('createOligo', err.response.data));
   };
 };
 

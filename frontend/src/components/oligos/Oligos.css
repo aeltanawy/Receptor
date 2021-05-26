@@ -60,5 +60,9 @@ thead {
 }
 
 .button {
-  margin: 10px 0px 0px 28px;
+  margin: 8px;
+}
+
+.loffset {
+  margin-left: 30px;
 }

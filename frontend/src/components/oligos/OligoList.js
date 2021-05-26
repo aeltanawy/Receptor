@@ -15,7 +15,7 @@ import UnAuthorized from '../UnAuthorized';
 function OligoList(props) {
 
   //Holds the number of items to be displayed per page
-  const PER_PAGE= 5;
+  const PER_PAGE= 10;
 
   const { isAuthenticated } = props.auth;
   const token = props.auth.token;
