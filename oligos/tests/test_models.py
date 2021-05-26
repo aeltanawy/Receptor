@@ -16,10 +16,10 @@ class OligoTest(TestCase):
         # creating oligo data
         name = 'Check-F'
         sequence = 'ctcatcttctctcttctctccac'
-        create_date = datetime.date.today()
+        created_date = datetime.date.today()
 
         return Oligo.objects.create(name=name, sequence=sequence,
-                                    create_date=create_date, user=user)
+                                    created_date=created_date, user=user)
 
     def test_oligo_creation(self):
         data = self.create_oligo()

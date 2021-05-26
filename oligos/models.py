@@ -4,12 +4,11 @@ import re
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
-from django.urls import reverse
 
 SENSE_CHOICES = (
-    ('S', 'Sense'),
-    ('A', 'Antisense'),
-    ('U', 'Unspecified')
+    ('Sense', 'Sense'),
+    ('Antisense', 'Antisense'),
+    ('Unspecified', 'Unspecified')
 )
 
 class UsageManager(models.Manager):
@@ -25,18 +24,21 @@ class Usage(models.Model):
     def __str__(self):
         return self.usage
 
+    class Meta:
+        ordering = ['usage']
+
 
 class Oligo(models.Model):
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    name = models.CharField(max_length=65, unique=True)
+    username = models.ForeignKey(User, to_field='username', on_delete=models.DO_NOTHING)
+    oligo_name = models.CharField(max_length=65, unique=True)
     sequence = models.CharField(max_length=200, blank=True)
     details = models.CharField(max_length=800, blank=True)
-    create_date = models.DateTimeField(default=datetime.datetime.now)
+    created_date = models.DateTimeField(default=datetime.datetime.now)
     modified_date = models.DateTimeField(True, False, 'date modified')
-    primer_position = models.CharField(max_length=2, blank=True, choices = SENSE_CHOICES, default='U')
     usages = models.ManyToManyField(Usage, blank=True)
     gene_locus = models.CharField(max_length=120, blank=True)
     organism = models.CharField(max_length=80, blank=True)
+    primer_position = models.CharField(max_length=12, blank=True, choices = SENSE_CHOICES, default='Unspecified')
     primer_partner = models.CharField(max_length=120, blank=True)
     company = models.CharField(max_length=80, blank=True)
     concentration = models.FloatField(null=True, blank=True)
@@ -44,17 +46,12 @@ class Oligo(models.Model):
 
     def __str__(self):
         """String represnting the Oligo object"""
-        return self.name
-
-    def get_absolute_url(self):
-        """Returns the url to access a particular instance of the model."""
-        return reverse('detail', args[str(self.id)])
+        return f'{self.oligo_name} - {self.username}'
 
     def length(self):
         return len(self.sequence)
-
     class Meta:
-        ordering = ['create_date']
+        ordering = ['-created_date']
 
 
 def extract_number(oligoname):
@@ -65,7 +62,7 @@ def extract_number(oligoname):
         return None
 
 def auto_name():
-    q = Oligo.objects.all().order_by('-create_date')[:100]
+    q = Oligo.objects.all().order_by('-created_date')[:100]
     namelist = list(q.values_list('name', flat=True))
     numlist = []
     for name in namelist:
@@ -322,10 +319,10 @@ def import_oligos(filename):
             oligo.user = user
             oligo.details = details
             if cdate:
-                oligo.create_date = cdate
+                oligo.created_date = cdate
                 lastdate=cdate
             else:
-                oligo.create_date = lastdate
+                oligo.created_date = lastdate
             oligo.sequence = sequence
             oligo.save()
             if usages:
