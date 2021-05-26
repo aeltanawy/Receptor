@@ -13,9 +13,7 @@ import {
 import { register } from '../../actions/auth';
 
 
-let RegisterForm = props => {
-
-  const fieldInput = ({ input, label, type, placeholder, meta: { touched, error } }) => {
+const fieldInput = ({ input, label, type, placeholder, meta: { touched, error } }) => {
     return (
       <Form.Group as={Row}>
         <Form.Label column sm={4}>{label}</Form.Label>
@@ -34,7 +32,9 @@ let RegisterForm = props => {
         </Col>
       </Form.Group>
     )
-  }
+  };
+
+let RegisterForm = props => {
 
   const onSubmit = formValues => {
     props.register(formValues);

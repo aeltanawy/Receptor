@@ -15,12 +15,12 @@ import {
 const initialState = {
   isLoading: false,
   isAuthenticated: null,
-  user: null,
+  user: '',
   token: localStorage.getItem('token'),
-  error: null, //TODO: check if needed
+  error: null,
 }
 
-function reducer(state = initialState, action) {
+export default function reducer(state = initialState, action) {
   switch (action.type) {
     case USER_LOADING:
       return {
@@ -61,5 +61,3 @@ function reducer(state = initialState, action) {
       return state;
   }
 }
-
-export default reducer;

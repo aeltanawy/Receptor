@@ -7,12 +7,13 @@ import Header from './components/Header';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import OligoList from './components/oligos/OligoList';
+import OligoDetails from './components/oligos/OligoDetails';
+import OligoAddEdit from './components/oligos/OligoAddEdit';
 import RegisterForm from './components/auth/RegisterForm';
 import LoginForm from './components/auth/LoginForm';
 import './App.css';
 import { loadUser } from './actions/auth';
-import store from './store'
-import history from './history';
+import store from './store';
 
 
 function App(props) {
@@ -24,16 +25,20 @@ function App(props) {
   return (
     <Provider store={store}>
       <div className='app'>
-        <Router history={history}>
+        <Router>
           <Header />
           <div className='body' {...props}>
             <Navbar />
             <div className='body-main'>
               <Switch>
                 <Route exact path='/' component={Home} />
-                <Route path='/oligos/oligos' component={OligoList} />
                 <Route path='/register' exact component={RegisterForm} />
                 <Route path='/login' exact component={LoginForm} />
+                <Route path='/oligos' component={OligoList} />
+                <Route path='/oligo_details/:id' component={OligoDetails} />
+                <Route path='/add' component={OligoAddEdit} />
+                <Route path='/edit/:id/' component={OligoAddEdit} />
+                <Route path='/copy/:id/' component={OligoAddEdit} />
               </Switch>
             </div>
           </div>
@@ -47,17 +52,3 @@ function App(props) {
 }
 
 export default App;
-
-// const mapStateToProps = state => {
-//   return {
-//     isAuthenticated: state.token !== null
-//   }
-// }
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     onTryAutoSignup: () => dispatch(actions.authCheckState())
-//   }
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(App);

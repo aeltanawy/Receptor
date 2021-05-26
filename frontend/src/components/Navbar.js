@@ -26,8 +26,8 @@ function NavbarMenu() {
           <span>Oligos</span>
         </Dropdown.Toggle>
         <Dropdown.Menu className='dropdown-items'>
-          <Dropdown.Item href='/oligos/oligos'>View list</Dropdown.Item>
-          <Dropdown.Item href='/'>Add new oligo</Dropdown.Item>
+          <Dropdown.Item href='/oligos'>View list</Dropdown.Item>
+          <Dropdown.Item href='/add'>Add new oligo</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item disabled>Batch submission</Dropdown.Item>
           <Dropdown.Item disabled>Sequence search</Dropdown.Item>
