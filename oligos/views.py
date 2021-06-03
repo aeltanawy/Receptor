@@ -1,17 +1,62 @@
+import datetime
+
 from django.contrib.postgres.search import SearchQuery, SearchRank
 from django.contrib.postgres.search import SearchVector
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, JsonResponse
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.forms import ModelForm
-from django.contrib.auth.models import User, Permission
+from django.contrib.auth.models import User
+from rest_framework import viewsets, permissions, generics
 
-from .models import Oligo
+from .serializers import OligoSerializer, UsageSerializer
+from .models import Oligo, Usage
 
 
-FIELDS = ['user', 'name', 'sequence', 'details', 'primer_position', 'primer_partner', 'usages', 'gene_locus', 'organism', 'company', 'concentration', 'grade']
+class UsageViewset(viewsets.ModelViewSet):
+    queryset = Usage.objects.all()
+    serializer_class = UsageSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class OligoViewset(viewsets.ModelViewSet):
+    # queryset = Oligo.objects.all()
+    serializer_class = OligoSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        """
+        Handle GET requests.
+        """
+        return Oligo.objects.all().order_by('-created_date')
+
+    def perform_create(self, serializer):
+        """
+        Handle POST requests.
+        """
+        data = self.request.data
+        serializer.save(username=self.request.user)
+
+    def partial_update(self, request, *args, **kwargs):
+        """
+        Handle PATCH requests.
+        """
+        # get the oligo record created_date value
+        created_date = Oligo.objects.get(id=request.data['id']).created_date
+
+        # set the modified_date as now
+        modified_date = datetime.datetime.now()
+
+        # update the request data
+        request.data['created_date'] = created_date
+        request.data['modified_data'] = modified_date
+
+        return super().partial_update(request, *args, **kwargs)
+
+# class OligoDetailView(DetailView)
+
+FIELDS = ['username', 'oligo_name', 'sequence', 'details', 'primer_position', 'primer_partner', 'usages', 'gene_locus', 'organism', 'company', 'concentration', 'grade']
 
 def batch(request):
     return HttpResponse("Batch Oligo")
@@ -36,8 +81,8 @@ class OligoSearchView(ListView):
         keywords = self.request.GET.get('q')
         if keywords:
             search_query = SearchQuery(keywords)
-            name_vector = SearchVector('name', weight='A')
-            user_vector = SearchVector('user', weight='B')
+            name_vector = SearchVector('oligo_name', weight='A')
+            user_vector = SearchVector('username', weight='B')
             gene_vector = SearchVector('gene_locus', weight='C')
             search_vector = name_vector + user_vector + gene_vector
             search_rank = SearchRank(search_vector, search_query)
@@ -52,7 +97,7 @@ class OligoDetailView(DetailView):
 
     def get(self, request, pk):
         oligo = Oligo.objects.get(pk=pk)
-        if request.user == oligo.user or request.user.is_superuser:
+        if request.user.username == oligo.username or request.user.is_superuser:
             can_change = True
         else:
             can_change = False

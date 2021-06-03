@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 
 # allow unique email address to be registered
-User._meta.get_field('email')._unique = True
+# User._meta.get_field('email')._unique = False
 
 class UserSerializer(serializers.ModelSerializer):
 

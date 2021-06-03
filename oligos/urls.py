@@ -9,6 +9,7 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register('oligos', views.OligoViewset, 'oligos')
+router.register('usages', views.UsageViewset, 'usages')
 
 app_name = 'oligos'
 urlpatterns = [
