@@ -7,7 +7,7 @@ import dotenv
 
 
 def main():
-    dotenv.load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'receptor'))
+    dotenv.load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'receptor', '.env'))
 
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'receptor.settings')
     try:
