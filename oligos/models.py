@@ -1,8 +1,10 @@
 import datetime
+from enum import unique
 import re
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.deletion import CASCADE, DO_NOTHING
 from django.utils import timezone
 
 SENSE_CHOICES = (
@@ -17,6 +19,12 @@ class UsageManager(models.Manager):
         return usage
 
 
+class OrgManager(models.Manager):
+    def create_org(self, org_name):
+        org_name = self.create(org_name=org_name)
+        return org_name
+
+
 class Usage(models.Model):
     usage = models.CharField(max_length=120)
     objects = UsageManager()
@@ -28,9 +36,40 @@ class Usage(models.Model):
         ordering = ['usage']
 
 
+class Organization(models.Model):
+    org_name = models.CharField(max_length=360)
+    objects = OrgManager()
+
+    def __str__(self):
+        return self.org_name
+
+    class Meta:
+        ordering = ['org_name']
+
+
+class OrgLab(models.Model):
+    org_name = models.ManyToManyField(Organization)
+    lab_name = models.CharField(max_length=240, default='Firstname Lastname', unique=True)
+
+    def save(self, *args, **kwargs):
+        self.lab_name = self.lab_name.capitalize()
+
+        super(OrgLab, self).save(*args, **kwargs)
+
+    def lab_initials(self) -> str:
+        lab_pi_names = self.lab_name.split()
+        lab_initials = lab_pi_names[0][0].upper() + lab_pi_names[1][0].upper()
+
+        return lab_initials
+
+    def __str__(self):
+        return f'{self.org_name}: {self.lab_name}'
+
+
 class Oligo(models.Model):
     username = models.ForeignKey(User, to_field='username', on_delete=models.DO_NOTHING)
-    oligo_name = models.CharField(max_length=65, unique=True)
+    lab_name = models.ForeignKey(OrgLab, to_field='lab_name', on_delete=CASCADE)
+    oligo_name = models.CharField(max_length=7, unique=True)
     sequence = models.CharField(max_length=200, blank=True)
     details = models.CharField(max_length=800, blank=True)
     created_date = models.DateTimeField(default=datetime.datetime.now)
@@ -50,6 +89,22 @@ class Oligo(models.Model):
 
     def length(self):
         return len(self.sequence)
+
+    def save(self, *args, **kwargs):
+        # get lab_initials of the lab_name
+        lab_initials = OrgLab.objects.filter(lab_name=self.lab_name).values('lab_initials')
+
+        # get total number of Oligo records for the lab_name
+        oligo_num = Oligo.objects.filter(lab_name=self.lab_name).count()
+
+        # add 1 to the current record
+        rec_oligo_num = str(oligo_num + 1)
+
+        # set oligo_name as XX-0000 where XX is the lab initials
+        self.oligo_name = f'{lab_initials}-{rec_oligo_num.zfill(4)}'
+
+        super(OrgLab, self).save(*args, **kwargs)
+
     class Meta:
         ordering = ['-created_date']
 
