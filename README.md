@@ -35,17 +35,19 @@ Receptor is hosted on AWS at *(In progress)*
 
 4. Download Postgres database
 
-      ### Mac Using Homebrew
+    <details><summary><b>Mac using Homebrew</b></summary>
 
-      - Download [Homebrew](https://brew.sh/)
-      - Install postgres
-        ```
-        brew install postgresql
-        ```
-      - Start postgres
-        ```
-        brew services start postgresql
-        ```
+    1. Download [Homebrew](https://brew.sh/)
+    2. Install postgres
+         ```
+         brew install postgresql
+         ```
+    3. Start postgres
+         ```
+         brew services start postgresql
+         ```
+
+    </details>
 
 5. Create the receptor database and a superuser
      ```
