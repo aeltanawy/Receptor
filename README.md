@@ -70,6 +70,7 @@ Receptor is hosted on AWS at *(In progress)*
 2. Run Receptor frontend (this way you can see code changes live)
      ```
      cd ./frontend
+     npm install #to install the project dependencies
      npm start
      ```
 
