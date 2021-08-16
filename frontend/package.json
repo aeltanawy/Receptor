@@ -60,5 +60,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "engines": {
+    "node": "16.6.1",
+    "npm": "7.20.5"
   }
 }

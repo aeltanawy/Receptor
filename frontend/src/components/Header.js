@@ -52,7 +52,7 @@ function Header(props) {
         <div className='logo'>
           <img
             className='logo-img'
-            src='/receptor_logo.gif'
+            src={process.env.PUBLIC_URL + '/receptor_logo.gif'}
             alt='Receptor application for storing oligos'
           />
         </div>

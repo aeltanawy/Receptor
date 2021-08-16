@@ -20,10 +20,6 @@
     color: #FFFFFF;
 }
 
-.nav-item a:hover {
-    color: #FFBA08;
-}
-
 .dropdown {
     color: #FFFFFF;
 }
@@ -38,15 +34,25 @@
     text-decoration: none;
 }
 
-.dropdown-items {
-    border-radius: 15px 15px 15px 15px;
-    width: 15px;
+.dropdown-menu {
+    width: 180px;
 }
 
 .dropdown-items a {
+    display: block;
+    width: 100%;
+    text-align: inherit;
     color: #020413;
+    padding: 10px 20px 10px 20px;
 }
 
-.nav-item a:hover {
+.nav-item a:hover, .dropdown-items a:hover {
     background-color: #020413;
+    color: #FFBA08;
+}
+
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+    color: lightgrey;
 }

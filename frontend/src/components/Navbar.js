@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import {
@@ -26,11 +27,11 @@ function NavbarMenu() {
           <span>Oligos</span>
         </Dropdown.Toggle>
         <Dropdown.Menu className='dropdown-items'>
-          <Dropdown.Item href='/oligos'>View list</Dropdown.Item>
-          <Dropdown.Item href='/add'>Add new oligo</Dropdown.Item>
+          <Link to='/oligos'>View list</Link>
+          <Link to='/add'>Add new oligo</Link>
           <Dropdown.Divider />
-          <Dropdown.Item disabled>Batch submission</Dropdown.Item>
-          <Dropdown.Item disabled>Sequence search</Dropdown.Item>
+          <Link to='#' class='disabled'>Batch submission</Link>
+          <Link to='#' class='disabled'>Sequence search</Link>
         </Dropdown.Menu>
       </Dropdown>
     </Nav>
