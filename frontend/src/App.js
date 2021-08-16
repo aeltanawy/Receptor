@@ -34,7 +34,7 @@ function App(props) {
                 <Route exact path='/' component={Home} />
                 <Route path='/register' exact component={RegisterForm} />
                 <Route path='/login' exact component={LoginForm} />
-                <Route path='/oligos' component={OligoList} />
+                <Route path='/oligos' exact component={OligoList} />
                 <Route path='/oligo_details/:id' component={OligoDetails} />
                 <Route path='/add' component={OligoAddEdit} />
                 <Route path='/edit/:id/' component={OligoAddEdit} />
