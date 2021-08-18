@@ -1,11 +1,11 @@
 import os
+from pathlib import Path
 
 from decouple import config
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -17,7 +17,8 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 #DEBUG = True
 DEBUG = config("DJANGO_DEBUG")
 
-ALLOWED_HOSTS = []
+# TODO add the host URL
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
@@ -42,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'coverage',
-    'fontawesome_5', #TODO: remove
+    'fontawesome_5', # TODO remove
     'mod_wsgi.server',
     'django_filters',
     'rest_framework',
@@ -59,6 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'receptor.urls'
@@ -66,7 +69,7 @@ ROOT_URLCONF = 'receptor.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, "frontend/build")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -91,12 +94,14 @@ DATABASES = {
         'NAME': config("DB_NAME"),
         'USER': config("DB_USER"),
         'PASSWORD': config("DB_PASS"),
-        'HOST': 'localhost',
-        'PORT': '5432',
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'HOST': 'localhost',
+        # 'PORT': '5432',
     }
 }
+
+# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = ['https://localhost:3000']
 
 
 # Password validation
@@ -135,25 +140,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, "site/public/static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
-#STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "frontend/build"),
 ]
 
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
-
-# Filebased Email setup for development only
-#EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-#EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
-
-# SMTP Email setup for production
-#EMAIL_HOST = 127.0.0.1
-#EMAIL_PORT = 25
-#EMAIL_HOST_USER = <smtp_user>
-#EMAIL_HOST_PASSWORD = <smtp_user_pwd>
-#EMAIL_USE_TLS = True
-#DEFAULT_FROM_EMAIL = ''
