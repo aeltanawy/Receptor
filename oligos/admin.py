@@ -1,11 +1,10 @@
 from django.contrib import admin
 
-from .models import Oligo, Usage, OrgLab
+from .models import Oligo, Usage
 
 
 #admin.site.register(Oligo)
 admin.site.register(Usage)
-admin.site.register(OrgLab)
 
 @admin.register(Oligo)
 class OligoAdmin(admin.ModelAdmin):

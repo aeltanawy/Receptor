@@ -108,6 +108,3 @@ venv.bak/
 
 # requests
 requests
-
-# Django migrations
-migrations/
