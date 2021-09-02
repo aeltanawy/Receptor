@@ -30,7 +30,7 @@ Receptor is hosted on AWS at *(In progress)*
 
 3. Install the project packages
      ```
-     pip install -r requirements
+     pip install -r requirements.txt
      ```
 
 4. Download Postgres database
