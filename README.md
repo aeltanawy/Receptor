@@ -53,7 +53,7 @@ Receptor is hosted on AWS at *(In progress)*
         ```
         psql postgres
         ```
-    2. Create 'receptor' database.
+    2. Create 'receptor' database
         ```
         CREATE DATABASE receptor;
         exit;
