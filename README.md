@@ -49,14 +49,25 @@ Receptor is hosted on AWS at *(In progress)*
 
     </details>
 
-5. Create the receptor database and a superuser
+5. Create the receptor database
+    1. Open the psql shell
+        ```
+        psql postgres
+        ```
+    2. Create 'receptor' databse
+        ```
+        CREATE DATABASE receptor;
+        exit;
+        ```
+
+6. Make migrations, migrate and create a superuser
      ```
      python manage.py makemigrations
      python manage.py migrate
      python manage.py createsuperuser
     ```
 
-6. Download and install [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+7. Download and install [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
 ---
 
