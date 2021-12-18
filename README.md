@@ -17,7 +17,7 @@ Receptor is hosted on AWS at *(In progress)*
 
 ## Configuration for development
 
-1. Create a `.env` file located in `Receptor/recptor` along with `setting.py` with the following variables defined:
+1. Create a `.env` file located in `Receptor/receptor` along with `settings.py` with the following variables defined:
      ```
      DB_USER=<your_username>
      DB_PASS=<your_password>
@@ -46,7 +46,10 @@ Receptor is hosted on AWS at *(In progress)*
          ```
          brew services start postgresql
          ```
-
+     4. To get Python working with Postgres, install psycopg2
+          ```
+          pip install psycopg2
+          ```
     </details>
 
 5. Create the receptor database
@@ -54,7 +57,7 @@ Receptor is hosted on AWS at *(In progress)*
         ```
         psql postgres
         ```
-    2. Create 'receptor' databse
+    2. Create 'receptor' databse. 
         ```
         CREATE DATABASE receptor;
         exit;
@@ -62,7 +65,7 @@ Receptor is hosted on AWS at *(In progress)*
 
 6. Make migrations, migrate and create a superuser
      ```
-     python manage.py makemigrations
+     python manage.py makemigrations oligos
      python manage.py migrate
      python manage.py createsuperuser
     ```
