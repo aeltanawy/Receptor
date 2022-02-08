@@ -2,6 +2,7 @@ import datetime
 
 from django.contrib.postgres.search import SearchQuery, SearchRank
 from django.contrib.postgres.search import SearchVector
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404, JsonResponse
 from django.views.generic import ListView, DetailView
@@ -29,7 +30,12 @@ class OligoViewset(viewsets.ModelViewSet):
         """
         Handle GET requests.
         """
-        return Oligo.objects.all().order_by('-created_date')
+        keywords = self.request.GET.get('q')
+        if keywords:
+            query_set = Oligo.objects.filter(Q(oligo_name__icontains=keywords) | Q(gene_locus__icontains=keywords) | Q(sequence__icontains=keywords) | Q(username__username__icontains=keywords))
+            return query_set.order_by('-created_date')
+        else:
+            return Oligo.objects.all().order_by('-created_date')
 
     def perform_create(self, serializer):
         """
@@ -80,6 +86,7 @@ class OligoSearchView(ListView):
 
         keywords = self.request.GET.get('q')
         if keywords:
+            query_set = query_set.filter(oligo_name__icontains=keywords)
             search_query = SearchQuery(keywords)
             name_vector = SearchVector('oligo_name', weight='A')
             user_vector = SearchVector('username', weight='B')
