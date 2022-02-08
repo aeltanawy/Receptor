@@ -78,7 +78,7 @@ function OligoList(props) {
           <form>
             <input type='text' className='input' placeholder='Search...' name='q' />
           </form>
-          <ul> </ul>
+          <br />
           <div className='table'>
             <Table striped bordered hover>
               <thead>
