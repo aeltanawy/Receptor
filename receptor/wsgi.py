@@ -14,7 +14,6 @@ from django.core.wsgi import get_wsgi_application
 from dj_static import Cling
 # import dotenv
 
-
 # dotenv.load_dotenv(override=True)
 
 # sys.path.append(os.getenv("RECEPTOR_DIR"))

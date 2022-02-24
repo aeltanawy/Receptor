@@ -15,7 +15,7 @@ Receptor is hosted on AWS at *(In progress)*
 
 ---
 
-## Configuration for development
+## Configuration for deployment on Linux Ubuntu
 
 1. Create a `.env` file located in `Receptor/recptor` along with `setting.py` with the following variables defined:
      ```
@@ -35,34 +35,38 @@ Receptor is hosted on AWS at *(In progress)*
 
 4. Download Postgres database
 
-    <details><summary><b>Mac using Homebrew</b></summary>
+     <details><summary><b>Linux Ubuntu</b></summary>
 
-    1. Download [Homebrew](https://brew.sh/)
-    2. Install postgres
-         ```
-         brew install postgresql
-         ```
-    3. Start postgres
-         ```
-         brew services start postgresql
-         ```
+     ```
+     sudo apt install libpq-dev python3.8-dev
+     sudo apt install postgresql postgresql-contrib
+     pip install psycopg2
+     sudo -u postgres -i # creates postgres database for system user postgres
+     ```
 
     </details>
 
 5. Create the receptor database
-    1. Open the psql shell
+     1. Open the psql shell and create a role for ubuntu
         ```
         psql postgres
+        sudo -u postgres createuser ubuntu
         ```
-    2. Create 'receptor' databse
+     2. Create 'receptor' databse
         ```
         CREATE DATABASE receptor;
         exit;
+        ```
+     3. Update the receptor/.env file with database username and password
+        ```
+        DB_USER='ubuntu'
+        DB_PASS='<your_pass>'
         ```
 
 6. Make migrations, migrate and create a superuser
      ```
      python manage.py makemigrations
+     pythin manage.py makemigrations oligos
      python manage.py migrate
      python manage.py createsuperuser
     ```
@@ -71,22 +75,20 @@ Receptor is hosted on AWS at *(In progress)*
 
 ---
 
-## Running Receptor
+## Running Receptor for production
 
-1. Run Receptor backend
-     ```
-     python manage.py runserver
-     ```
-
-2. Run Receptor frontend (this way you can see code changes live)
+1. Build Receptor static files
      ```
      cd ./frontend
-     npm install #to install the project dependencies
-     npm start
+     npm run-script build
+     ```
+2. Collect static files
+     ```
+     cd .. # to go back to project root dir
+     python manage.py collectstatic
      ```
 
 ---
-
 
 ## Contributions
 
