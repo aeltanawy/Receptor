@@ -46,10 +46,6 @@ Receptor is hosted on AWS at *(In progress)*
          ```
          brew services start postgresql
          ```
-     4. To get Python working with Postgres, install psycopg2
-          ```
-          pip install psycopg2
-          ```
     </details>
 
 5. Create the receptor database
@@ -57,7 +53,7 @@ Receptor is hosted on AWS at *(In progress)*
         ```
         psql postgres
         ```
-    2. Create 'receptor' databse. 
+    2. Create 'receptor' database.
         ```
         CREATE DATABASE receptor;
         exit;
