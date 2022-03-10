@@ -75,18 +75,63 @@ Receptor is hosted on AWS at *(In progress)*
 
 ---
 
+## Setting up nginx
+
+1. Install nginx
+2. Set up config file
+   ```
+   sudo vim /etc/nginx/sites-available/receptor
+   ```
+3. Add the following settings
+   ```
+   server {
+     listen 80;
+     server_name <your instance public IP>;
+
+     location / {
+        include proxy_params;
+        proxy_pass http://localhost:8000/;
+     }
+    }
+   ```
+4. Restart nginx
+   ```
+   sudo systemctl restart nginx
+   ```
+
+
+---
+
 ## Running Receptor for production
 
-1. Build Receptor static files
+1. Install gunicorn
+   ```
+   sudo pip install gunicorn
+   ```
+2. Build Receptor static files
      ```
      cd ./frontend
      npm run-script build
      ```
-2. Collect static files
+3. Collect static files
      ```
      cd .. # to go back to project root dir
      python manage.py collectstatic
      ```
+4. Run app by bunding the app wsgi.py file and the port to use
+     ```
+     gunicorn receptor.wsgi --bind 0.0.0.0:8000
+     ```
+
+---
+## Add Initial Usages
+
+```
+Hybridize
+Mutagenesis
+PCR
+Sequencing
+```
 
 ---
 
