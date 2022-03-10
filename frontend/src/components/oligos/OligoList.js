@@ -5,7 +5,7 @@ import { Table } from 'react-bootstrap';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, Redirect } from 'react-router-dom';
 
 // import { getOligos } from '../../actions/oligos';
 import './Oligos.css';
@@ -24,6 +24,8 @@ function OligoList(props) {
   const [currentPage, setCurrentPage] = useState(0);
   const offset = currentPage * PER_PAGE;
   const pageCount = Math.ceil(data.length / PER_PAGE);
+  const search = useLocation().search;
+  const query = new URLSearchParams(search).get('q');
 
   useEffect(() => {
     async function getData() {
@@ -31,8 +33,12 @@ function OligoList(props) {
       headers: {
         'Authorization': `Token ${token}`
       }};
-      const res = await axios.get(`/oligos/oligos`, auth_token);
-      setData(res.data);
+      if (query) {
+        const res = await axios.get(`/oligos/oligos?q=` + query, auth_token);
+        setData(res.data); }
+      else {
+        const res = await axios.get(`/oligos/oligos`, auth_token);
+        setData(res.data); }
     }
     getData();
     // props.getOligos();
@@ -69,6 +75,10 @@ function OligoList(props) {
       <br />
       { isAuthenticated ? (
         <React.Fragment>
+          <form>
+            <input type='text' className='input' placeholder='Search...' name='q' />
+          </form>
+          <br />
           <div className='table'>
             <Table striped bordered hover>
               <thead>

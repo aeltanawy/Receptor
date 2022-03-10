@@ -17,7 +17,7 @@ Receptor is hosted on AWS at *(In progress)*
 
 ## Configuration for deployment on Linux Ubuntu
 
-1. Create a `.env` file located in `Receptor/recptor` along with `setting.py` with the following variables defined:
+1. Create a `.env` file located in `Receptor/receptor` along with `settings.py` with the following variables defined:
      ```
      DB_USER=<your_username>
      DB_PASS=<your_password>
@@ -53,7 +53,7 @@ Receptor is hosted on AWS at *(In progress)*
         psql postgres
         sudo -u postgres createuser ubuntu
         ```
-     2. Create 'receptor' databse
+    2. Create 'receptor' database.
         ```
         CREATE DATABASE receptor;
         exit;
@@ -66,8 +66,7 @@ Receptor is hosted on AWS at *(In progress)*
 
 6. Make migrations, migrate and create a superuser
      ```
-     python manage.py makemigrations
-     pythin manage.py makemigrations oligos
+     python manage.py makemigrations oligos
      python manage.py migrate
      python manage.py createsuperuser
     ```
