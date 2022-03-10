@@ -1,5 +1,8 @@
 import os
 from pathlib import Path
+from datetime import timedelta
+
+#from rest_framework.settings import api_settings
 
 from decouple import config
 
@@ -17,8 +20,9 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 #DEBUG = True
 DEBUG = config("DJANGO_DEBUG")
 
-# TODO add the host URL
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+# add the host URL or public IP
+ALLOWED_HOSTS = [config("HOST")]
+# ALLOWED_HOSTS = ['*']
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
@@ -29,6 +33,16 @@ REST_FRAMEWORK = {
         ),
     'DATETIME_FORMAT': "%m/%d/%Y %H:%M:%S",
     # 'EXCEPTION_HANDLER': 'backend.utils.custom_exception_handler',
+}
+
+REST_KNOX = {
+    'SECURE_HASH_ALGORITHM': 'cryptography.hazmat.primitives.hashes.SHA512',
+    'AUTH_TOKEN_CHARACTER_LENGTH': 64,
+    'TOKEN_TTL': timedelta(hours=10),
+    'USER_SERIALIZER': 'knox.serializers.UserSerializer',
+    'TOKEN_LIMIT_PER_USER': None,
+    'AUTO_REFRESH': False,
+    #'EXPIRY_DATETIME_FORMAT': api_settings.DATETME_FORMAT,
 }
 
 # Application definition
@@ -44,7 +58,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'coverage',
     'fontawesome_5', # TODO remove
-    'mod_wsgi.server',
+    #'mod_wsgi.server',
     'django_filters',
     'rest_framework',
     'corsheaders',
