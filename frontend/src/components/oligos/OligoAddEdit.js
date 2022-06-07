@@ -4,20 +4,25 @@ import { connect } from 'react-redux';
 
 import { getOligo, addOligo, editOligo } from '../../actions/oligos';
 import OligoForm from './OligoForm';
+import UnAuthorized from '../UnAuthorized';
 
 
-function OligoAddEdit(props) {
+function OligoAddEdit(props)
+{
 
   const [mode, setMode] = useState(undefined);
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState(undefined);
   const { id } = useParams();
   const isAddMode = !id;
+  const { isAuthenticated } = props.auth;
 
-  const onSubmit = formValues => {
+  const onSubmit = formValues =>
+  {
     isAddMode ? props.addOligo(formValues) : props.editOligo(id, formValues);
   };
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     // TODO: differentiate between edit, copy
     if (!isAddMode) {
       props.getOligo(id);
@@ -26,15 +31,17 @@ function OligoAddEdit(props) {
     } else {
       setMode('Add');
     };
-    setUser(props.auth.user.username);
-  }, [id, isAddMode, props.auth.user.username])
+    if (isAuthenticated) {
+      setUser(props.auth.user.username);
+    }
+  }, [id, isAddMode, isAuthenticated])
 
 
   return (
     <React.Fragment>
       <h2 className='title'>{mode} Oligo</h2>
       <br />
-      { user ?
+      {(isAuthenticated && user) ? (
         <OligoForm
           onSubmit={onSubmit}
           initialValues={{
@@ -42,8 +49,9 @@ function OligoAddEdit(props) {
             ...props.oligo
           }}
         />
-        : null
-      }
+      ) : (
+        <UnAuthorized />
+      )}
       <br />
     </React.Fragment>
   )

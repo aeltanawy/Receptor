@@ -3,20 +3,22 @@
 import axios from 'axios';
 import { stopSubmit } from 'redux-form';
 
-import {
-  USER_LOADED,
-  USER_LOADING,
-  AUTH_ERROR,
-  LOGIN_FAIL,
-  LOGIN_SUCCESS,
-  LOGOUT_SUCCESS,
-  REGISTER_FAIL,
-  REGISTER_SUCCESS
-} from './types';
+import
+  {
+    USER_LOADED,
+    USER_LOADING,
+    AUTH_ERROR,
+    LOGIN_FAIL,
+    LOGIN_SUCCESS,
+    LOGOUT_SUCCESS,
+    REGISTER_FAIL,
+    REGISTER_SUCCESS
+  } from './types';
 
 
 // load user
-export const loadUser = () => async (dispatch, getState) => {
+export const loadUser = () => async (dispatch, getState) =>
+{
   dispatch({ type: USER_LOADING });
 
   try {
@@ -33,7 +35,8 @@ export const loadUser = () => async (dispatch, getState) => {
 };
 
 // login user
-export const login = ({ username, password }) => async dispatch => {
+export const login = ({ username, password }) => async dispatch =>
+{
   // Headers
   const config = {
     headers: {
@@ -42,10 +45,10 @@ export const login = ({ username, password }) => async dispatch => {
   };
 
   // Request body
-  const body = JSON.stringify( {username, password } );
+  const body = JSON.stringify({ username, password });
 
   try {
-    const res = await axios.post('api/auth/login', body, config);
+    const res = await axios.post('/api/auth/login', body, config);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
@@ -59,7 +62,8 @@ export const login = ({ username, password }) => async dispatch => {
 };
 
 // helper function
-export const tokenConfig = getState => {
+export const tokenConfig = getState =>
+{
   // get token
   const token = getState().auth.token;
 
@@ -78,7 +82,8 @@ export const tokenConfig = getState => {
 }
 
 // logout user
-export const logout = () => async (dispatch, getState) => {
+export const logout = () => async (dispatch, getState) =>
+{
   await axios.post('/api/auth/logout', null, tokenConfig(getState));
   dispatch({
     type: LOGOUT_SUCCESS
@@ -86,7 +91,8 @@ export const logout = () => async (dispatch, getState) => {
 };
 
 // register user
-export const register = ({ username, email, password }) => async dispatch => {
+export const register = ({ username, email, password }) => async dispatch =>
+{
   //Headers
   const config = {
     headers: {
@@ -99,13 +105,13 @@ export const register = ({ username, email, password }) => async dispatch => {
   try {
     const res = await axios.post('/api/auth/register', body, config);
     dispatch({
-    type: REGISTER_SUCCESS,
-    payload: res.data
-  });
+      type: REGISTER_SUCCESS,
+      payload: res.data
+    });
   } catch (err) {
     dispatch({
       type: REGISTER_FAIL
     });
     dispatch(stopSubmit('registerForm', err.response.data))
   }
- }
+}

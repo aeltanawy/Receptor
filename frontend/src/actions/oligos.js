@@ -2,19 +2,21 @@ import axios from 'axios';
 import { tokenConfig } from './auth';
 import { reset, stopSubmit } from 'redux-form';
 
-import {
-  GET_OLIGOS,
-  GET_OLIGO,
-  ADD_OLIGO,
-  DELETE_OLIGO,
-  EDIT_OLIGO,
-  BAD_REQUEST
-} from './types';
+import
+  {
+    GET_OLIGOS,
+    GET_OLIGO,
+    ADD_OLIGO,
+    DELETE_OLIGO,
+    EDIT_OLIGO,
+    BAD_REQUEST
+  } from './types';
 
 axios.defaults.baseURL = '/';
 
 // get oligos
-export const getOligos = () => async (dispatch, getState) => {
+export const getOligos = () => async (dispatch, getState) =>
+{
   const res = await axios.get('/oligos/oligos/', tokenConfig(getState));
   dispatch({
     type: GET_OLIGOS,
@@ -23,7 +25,8 @@ export const getOligos = () => async (dispatch, getState) => {
 };
 
 // get oligo
-export const getOligo = id => async (dispatch, getState) => {
+export const getOligo = id => async (dispatch, getState) =>
+{
   const res = await axios.get(`/oligos/oligos/${id}`, tokenConfig(getState));
   dispatch({
     type: GET_OLIGO,
@@ -32,10 +35,11 @@ export const getOligo = id => async (dispatch, getState) => {
 };
 
 // add oligo
-export const addOligo = formValues => async (dispatch, getState) => {
+export const addOligo = formValues => async (dispatch, getState) =>
+{
   try {
     const res = await axios.post(
-      'oligos/oligos/',
+      '/oligos/oligos/',
       { ...formValues },
       tokenConfig(getState)
     );
@@ -53,10 +57,11 @@ export const addOligo = formValues => async (dispatch, getState) => {
 };
 
 // delete oligo
-export const deleteOligo = id => async (dispatch, getState) => {
+export const deleteOligo = id => async (dispatch, getState) =>
+{
   try {
     await axios.delete(
-      `oligos/oligos/${id}/`,
+      `/oligos/oligos/${id}/`,
       tokenConfig(getState)
     );
     dispatch({
@@ -71,10 +76,11 @@ export const deleteOligo = id => async (dispatch, getState) => {
 };
 
 // edit oligo
-export const editOligo = (id, formValues) => async (dispatch, getState) => {
+export const editOligo = (id, formValues) => async (dispatch, getState) =>
+{
   try {
     const res = await axios.patch(
-      `oligos/oligos/${id}/`,
+      `/oligos/oligos/${id}/`,
       formValues,
       tokenConfig(getState),
     );

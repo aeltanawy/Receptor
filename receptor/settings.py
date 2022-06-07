@@ -21,8 +21,8 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 DEBUG = config("DJANGO_DEBUG")
 
 # add the host URL or public IP
-ALLOWED_HOSTS = [config("HOST")]
-# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = config("HOSTS").split(',')
+# ALLOWED_HOSTS = ['*', 'neidl-receptor.bumc.bu.edu']
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],

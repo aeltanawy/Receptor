@@ -24,7 +24,7 @@ Receptor is hosted on AWS at *(In progress)*
      DJANGO_SECRET_KEY=<db_key>
      DJANGO_DEBUG='True'
      DB_NAME='receptor'
-     HOST=<hos_name or public_ip>
+     HOST='<host_name or public_ip>,<another_host_name>'
      ```
 
 2. Create and activate a virtual environment
@@ -120,7 +120,7 @@ Receptor is hosted on AWS at *(In progress)*
      ```
 4. Run app by bunding the app wsgi.py file and the port to use
      ```
-     gunicorn receptor.wsgi --bind 0.0.0.0:8000
+     gunicorn receptor.wsgi --bind 0.0.0.0:8000 --daemon
      ```
 
 ---

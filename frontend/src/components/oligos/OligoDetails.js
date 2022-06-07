@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Container, Col, Row, Button } from 'react-bootstrap';
 import { useAlert } from 'react-alert';
@@ -8,18 +8,21 @@ import './Oligos.css';
 import { getOligo, deleteOligo } from '../../actions/oligos';
 
 
-function OligoDetails(props) {
+function OligoDetails(props)
+{
 
   const { user } = props.auth;
   const { id } = useParams();
   const history = useHistory();
   const alert = useAlert();
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     props.getOligo(id);
   }, [id]);
 
-  const deleteOligo = () => {
+  const deleteOligo = () =>
+  {
     const oligo_name = props.oligo.oligo_name;
     if (window.confirm(`Are you sure you want to delete '${oligo_name}'?`)) {
       props.deleteOligo(id);
@@ -30,7 +33,7 @@ function OligoDetails(props) {
 
   return (
     <React.Fragment>
-      { props.oligo ? (
+      {props.oligo ? (
         <div className='detail'>
           <h2 className='title'><b>{props.oligo.oligo_name}</b> Oligo Details</h2>
           <br />
@@ -62,7 +65,8 @@ function OligoDetails(props) {
               <Row>
                 <b>Usage:</b>
               </Row>
-              { props.oligo.usages && props.oligo.usages.map( (usage, i) => {
+              {props.oligo.usages && props.oligo.usages.map((usage, i) =>
+              {
                 return (
                   <Row key={i}>
                     <li>{usage}</li>
@@ -115,19 +119,21 @@ function OligoDetails(props) {
             {props.oligo.username === user.username ? (
               <React.Fragment>
                 <div className='button loffset'>
-                  <Button variant='primary' href={`/edit/${id}/`}>Edit</Button>
+                  <Link to={`/edit/${id}/`}>
+                    <Button variant='primary'>Edit</Button>
+                  </Link>
                 </div>
                 <div className='button'>
                   <Button variant='primary' onClick={deleteOligo}>Delete</Button>
                 </div>
               </React.Fragment>
-            ):(null)}
+            ) : (null)}
             {/* <div className='button'>
               <Button variant='primary' href={`/copy/${id}/`}>Copy to New Oligo</Button>
             </div> */}
           </Row>
         </div>
-      ) : null }
+      ) : null}
     </React.Fragment>
   )
 }
