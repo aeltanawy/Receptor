@@ -16,9 +16,11 @@ import { loadUser } from './actions/auth';
 import store from './store';
 
 
-function App(props) {
+function App(props)
+{
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     store.dispatch(loadUser());
   }, [])
 
