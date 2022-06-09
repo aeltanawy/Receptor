@@ -21,7 +21,6 @@ Receptor is hosted on AWS at *(In progress)*
      ```
      DB_USER=<your_username>
      DB_PASS=<your_password>
-     DJANGO_SECRET_KEY=<db_key>
      DJANGO_DEBUG='True'
      DB_NAME='receptor'
      HOSTS='<host_name or public_ip>,<another_host_name>'
