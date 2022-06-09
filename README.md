@@ -24,7 +24,7 @@ Receptor is hosted on AWS at *(In progress)*
      DJANGO_SECRET_KEY=<db_key>
      DJANGO_DEBUG='True'
      DB_NAME='receptor'
-     HOST='<host_name or public_ip>,<another_host_name>'
+     HOSTS='<host_name or public_ip>,<another_host_name>'
      ```
 
 2. Create and activate a virtual environment
