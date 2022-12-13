@@ -1,6 +1,6 @@
 decorator==5.0.9
 coverage==4.5.4
-Django==3.1.12
+Django==3.1.14
 django-cors-headers==3.7.0
 django-filter==2.4.0
 django-fontawesome-5==1.0.18
